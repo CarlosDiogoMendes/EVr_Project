@@ -1,0 +1,46 @@
+-----------------------------------------------------------------------------------------------------
+
+http://localhost/evr/registar_cliente.php
+
+Espera pedido:
+	1. {"email": um_email, "password": uma_password, "username": um_username, "nome": um_nome,
+		"telefone": um_telefone, "telemovel": um_telemovel, "morada": uma_morada }
+
+Devolve resposta:
+	1. Sem sucesso porque nem todos os campos obrigatorios foram especificados:
+		{ "message": "User register failed", "errorCode": "0", "errorMessage": "Email, password, username, name, phone, mobile and address values must be specified" }
+	2. Sem sucesso porque a query à base de dados falhou:
+		{ "message": "User register failed", "errorCode": "um_codigo_erro", "errorMessage": "uma_mensagem_erro" }
+	4. Com sucesso:
+		{ "message": "User register successful", "errorCode": "", "errorMessage": "" }
+
+-----------------------------------------------------------------------------------------------------
+
+http://localhost/evr/autenticar_cliente.php
+
+Espera pedido:
+	1. {"email": um_email, "password": uma_password}
+
+Devolve resposta:
+	1. Sem sucesso porque email e/ou password nao especificados:
+		{ "message": "User authentication failed", "errorCode": "0", "errorMessage": "Both email and password must be specified" }
+	2. Sem sucesso porque a query à base de dados falhou:
+		{ "message": "User authentication failed", "errorCode": "um_codigo_erro", "errorMessage": "uma_mensagem_erro" }
+	3. Sem sucesso porque email e/ou password incorreto:
+		{ "message": "User authentication failed", "errorCode": "1", "errorMessage": "Incorrect email or password" }
+	4. Com sucesso:
+		{ "message": "User authentication sucessful", "errorCode": "", "errorMessage": "" }
+
+-----------------------------------------------------------------------------------------------------
+
+http://localhost/evr/get_paises.php
+
+Espera pedido:
+	1. vazio (devolve todos)
+	2. ?filter=um_atributo&value=um_valor (e.g. ?filter=codigo&value=P)
+
+Devolve resposta:
+	1. Array com 0 ou mais paises do tipo:
+		[{"codigo":"P","nome":"Portugal","capital":"Lisboa","area":"92080","populacao":"9865114"}]
+
+-----------------------------------------------------------------------------------------------------
