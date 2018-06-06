@@ -74,7 +74,7 @@ function insertClient(client) {
     
         if (http_request.readyState == 4  ){
            // Javascript function JSON.parse to parse JSON data
-          console.log(http_request.responseText.message);
+          console.log(http_request.responseText);
         }
     }
 
@@ -103,7 +103,8 @@ function checkUser(email,pass) {
     
         if (http_request.readyState == 4  ){
            // Javascript function JSON.parse to parse JSON data
-          alert(http_request.responseText.substring(13,44));
+          //alert(http_request.responseText.substring(13,44));
+            alert(http_request.responseText);
         }
     }
 
