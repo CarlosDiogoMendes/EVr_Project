@@ -25,9 +25,10 @@ class Cliente {
     function read($filter, $value) {
         $query = "SELECT * FROM $this->table_name";
         if ($filter != NULL && $value != NULL) {
-            $query .= " WHERE $filter = $value";
+            $query .= " WHERE $filter = ?";
         }
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $value);
         $stmt->execute();
         return $stmt;
     }
@@ -36,9 +37,10 @@ class Cliente {
         $query = "INSERT INTO " . $this->table_name . 
               " SET " . $this->buildQueryAttributes();
         $stmt = $this->conn->prepare($query);
-        sanitize();
-        $stmt = bindValues($stmt);
+        $this->sanitize();
+        $stmt = $this->bindValues($stmt);
         $stmt->execute();
+        //echo $query;
         return $stmt;
     }
 
@@ -64,8 +66,8 @@ class Cliente {
               " SET " . $this->buildQueryAttributes() . 
               " WHERE email = :email";
         $stmt = $this->conn->prepare($query);
-        sanitize();
-        $stmt = bindValues($stmt);
+        $this->sanitize();
+        $stmt = $this->bindValues($stmt);
         $stmt->execute();
         return $stmt;
     }
@@ -73,35 +75,35 @@ class Cliente {
     private function buildQueryAttributes() {
       $res = "";
       if($this->email) {
-        $res .= "email = :email";
+        $res .= "Email=:Email";
       }
       if($this->password) {
         $res = $this->addComma($res);
-        $res .= "password = :password";
+        $res .= "Password=:Password";
       }
       if($this->username) {
         $res = $this->addComma($res);
-        $res .= "username = :username";
+        $res .= "Username=:Username";
       }
       if($this->nome) {
         $res = $this->addComma($res);
-        $res .= "nome = :nome";
+        $res .= "Nome=:Nome";
       }
       if($this->telefone) {
         $res = $this->addComma($res);
-        $res .= "telefone = :telefone";
+        $res .= "Telefone=:Telefone";
       }
       if($this->telemovel) {
         $res = $this->addComma($res);
-        $res .= "telemovel = :telemovel";
+        $res .= "Telemovel=:Telemovel";
       }
       if($this->morada) {
         $res = $this->addComma($res);
-        $res .= "morada = :morada";
+        $res .= "Morada=:Morada";
       }
       if($this->avatar) {
         $res = $this->addComma($res);
-        $res .= "avatar = :avatar";
+        $res .= "Avatar=:Avatar";
       }
       return $res;
     }
@@ -135,28 +137,28 @@ class Cliente {
     
     private function bindValues($stmt) {
       if ($this->email) {
-        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":Email", $this->email);
       }
       if ($this->password) {
-        $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":Password", $this->password);
       }
       if ($this->username) {
-        $stmt->bindParam(":username", $this->username);
+       $stmt->bindParam(":Username", $this->username);
       }
       if ($this->nome) {
-         $stmt->bindParam(":nome", $this->nome);
+         $stmt->bindParam(":Nome", $this->nome);
       }
       if ($this->telefone) {
-         $stmt->bindParam(":telefone", $this->telefone);
+         $stmt->bindParam(":Telefone", $this->telefone);
       }
       if ($this->telemovel) {
-        $stmt->bindParam(":telemovel", $this->telemovel);
+        $stmt->bindParam(":Telemovel", $this->telemovel);
       }
       if ($this->morada) {
-        $stmt->bindParam(":morada", $this->morada);
+        $stmt->bindParam(":Morada", $this->morada);
       }
       if ($this->avatar) {
-        $stmt->bindParam(":avatar", $this->avatar);
+        $stmt->bindParam(":Avatar", $this->avatar);
       }
       return $stmt;
     }

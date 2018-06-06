@@ -5,7 +5,7 @@ class Database{
     private $host = "localhost";
     private $db_name = "evr_db";
     private $username = "root";  # mudar username se necessario
-    private $password = "45404"; # mudar password se necessario
+    private $password = "ev2018"; # mudar password se necessario
     public $conn;
 
     // get the database connection

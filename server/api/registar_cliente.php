@@ -23,7 +23,14 @@
                     . '"errorCode": "0", '
                     . '"errorMessage": "Email, password, username, name, phone, mobile and address values must be specified"';
     } else {
-        $stmt = $cliente->create();
+        $cliente->email = $data->email;
+        $cliente->password = $data->password;
+        $cliente->username = $data->username;
+        $cliente->nome = $data->nome;
+        $cliente->telefone = $data->telefone;
+        $cliente->telemovel = $data->telemovel;
+        $cliente->morada = $data->morada;
+        $stmt = $cliente->insert();
         $error = $stmt->errorInfo();
         if ($error[0] === false) {
             echo '"message": "User register failed", '
