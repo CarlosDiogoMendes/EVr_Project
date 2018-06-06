@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 01-Jun-2018 às 17:49
+-- Generation Time: 06-Jun-2018 às 15:01
 -- Versão do servidor: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -103,6 +103,47 @@ INSERT INTO `entidadepublica` (`Nome`, `Contacto`, `Pais`, `Cidade`, `Tipo`) VAL
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `feedbackorganizacaovirtual`
+--
+
+CREATE TABLE `feedbackorganizacaovirtual` (
+  `Festival` int(11) NOT NULL,
+  `EmailAvaliador` varchar(255) NOT NULL,
+  `EmailAvaliado` varchar(255) NOT NULL,
+  `Classificacao` enum('1','2','3','4','5') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `feedbacktarefa`
+--
+
+CREATE TABLE `feedbacktarefa` (
+  `Tarefa` int(11) NOT NULL,
+  `EmailAvaliador` varchar(255) NOT NULL,
+  `EmailAvaliado` varchar(255) NOT NULL,
+  `Classificacao` enum('1','2','3','4','5') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `festival`
+--
+
+CREATE TABLE `festival` (
+  `Id` int(11) NOT NULL,
+  `Nome` varchar(255) NOT NULL,
+  `Pais` varchar(4) NOT NULL,
+  `Cidade` varchar(35) NOT NULL,
+  `Data` date NOT NULL,
+  `Imagem` mediumblob
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `membro`
 --
 
@@ -125,6 +166,86 @@ CREATE TABLE `membro` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `mensagemclientemembro`
+--
+
+CREATE TABLE `mensagemclientemembro` (
+  `Id` int(11) NOT NULL,
+  `Emissor` varchar(255) DEFAULT NULL,
+  `Recetor` varchar(255) DEFAULT NULL,
+  `Tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Mensagem` varchar(20000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `mensagemmembrocliente`
+--
+
+CREATE TABLE `mensagemmembrocliente` (
+  `Id` int(11) NOT NULL,
+  `Emissor` varchar(255) DEFAULT NULL,
+  `Recetor` varchar(255) DEFAULT NULL,
+  `Tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Mensagem` varchar(20000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `mensagemmembromembro`
+--
+
+CREATE TABLE `mensagemmembromembro` (
+  `Id` int(11) NOT NULL,
+  `Emissor` varchar(255) DEFAULT NULL,
+  `Recetor` varchar(255) DEFAULT NULL,
+  `Tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Mensagem` varchar(20000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `noticiacliente`
+--
+
+CREATE TABLE `noticiacliente` (
+  `Id` int(11) NOT NULL,
+  `Tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Conteudo` varchar(20000) NOT NULL,
+  `Autor` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `noticiamembro`
+--
+
+CREATE TABLE `noticiamembro` (
+  `Id` int(11) NOT NULL,
+  `Tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Conteudo` varchar(20000) NOT NULL,
+  `Autor` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `organizacaovirtual`
+--
+
+CREATE TABLE `organizacaovirtual` (
+  `IdFestival` int(11) NOT NULL,
+  `EmailCliente` varchar(255) NOT NULL,
+  `EmailMembro` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `pais`
 --
 
@@ -142,6 +263,33 @@ CREATE TABLE `pais` (
 
 INSERT INTO `pais` (`Codigo`, `Nome`, `Capital`, `Area`, `Populacao`) VALUES
 ('P', 'Portugal', 'Lisboa', 92080, 9865114);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pedidoregistomembro`
+--
+
+CREATE TABLE `pedidoregistomembro` (
+  `EmailMembro` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tarefa`
+--
+
+CREATE TABLE `tarefa` (
+  `Id` int(11) NOT NULL,
+  `Tipo` varchar(255) NOT NULL,
+  `DataInicio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `DataFim` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `Festival` int(11) DEFAULT NULL,
+  `Coordenador` varchar(255) DEFAULT NULL,
+  `Responsavel` varchar(255) DEFAULT NULL,
+  `Estado` enum('Completa','Incompleta','Cancelada') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -169,6 +317,27 @@ ALTER TABLE `entidadepublica`
   ADD KEY `Cidade` (`Cidade`,`Pais`);
 
 --
+-- Indexes for table `feedbackorganizacaovirtual`
+--
+ALTER TABLE `feedbackorganizacaovirtual`
+  ADD PRIMARY KEY (`Festival`,`EmailAvaliador`,`EmailAvaliado`);
+
+--
+-- Indexes for table `feedbacktarefa`
+--
+ALTER TABLE `feedbacktarefa`
+  ADD PRIMARY KEY (`Tarefa`,`EmailAvaliador`,`EmailAvaliado`),
+  ADD KEY `EmailAvaliador` (`EmailAvaliador`),
+  ADD KEY `EmailAvaliado` (`EmailAvaliado`);
+
+--
+-- Indexes for table `festival`
+--
+ALTER TABLE `festival`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Cidade` (`Cidade`,`Pais`);
+
+--
 -- Indexes for table `membro`
 --
 ALTER TABLE `membro`
@@ -178,11 +347,116 @@ ALTER TABLE `membro`
   ADD KEY `Cidade` (`Cidade`,`Pais`);
 
 --
+-- Indexes for table `mensagemclientemembro`
+--
+ALTER TABLE `mensagemclientemembro`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Emissor` (`Emissor`),
+  ADD KEY `Recetor` (`Recetor`);
+
+--
+-- Indexes for table `mensagemmembrocliente`
+--
+ALTER TABLE `mensagemmembrocliente`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Emissor` (`Emissor`),
+  ADD KEY `Recetor` (`Recetor`);
+
+--
+-- Indexes for table `mensagemmembromembro`
+--
+ALTER TABLE `mensagemmembromembro`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Emissor` (`Emissor`),
+  ADD KEY `Recetor` (`Recetor`);
+
+--
+-- Indexes for table `noticiacliente`
+--
+ALTER TABLE `noticiacliente`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Autor` (`Autor`);
+
+--
+-- Indexes for table `noticiamembro`
+--
+ALTER TABLE `noticiamembro`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Autor` (`Autor`);
+
+--
+-- Indexes for table `organizacaovirtual`
+--
+ALTER TABLE `organizacaovirtual`
+  ADD PRIMARY KEY (`IdFestival`,`EmailCliente`,`EmailMembro`),
+  ADD KEY `EmailCliente` (`EmailCliente`),
+  ADD KEY `EmailMembro` (`EmailMembro`);
+
+--
 -- Indexes for table `pais`
 --
 ALTER TABLE `pais`
   ADD PRIMARY KEY (`Codigo`),
   ADD UNIQUE KEY `Nome` (`Nome`);
+
+--
+-- Indexes for table `pedidoregistomembro`
+--
+ALTER TABLE `pedidoregistomembro`
+  ADD PRIMARY KEY (`EmailMembro`);
+
+--
+-- Indexes for table `tarefa`
+--
+ALTER TABLE `tarefa`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Festival` (`Festival`,`Coordenador`,`Responsavel`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `festival`
+--
+ALTER TABLE `festival`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mensagemclientemembro`
+--
+ALTER TABLE `mensagemclientemembro`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mensagemmembrocliente`
+--
+ALTER TABLE `mensagemmembrocliente`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mensagemmembromembro`
+--
+ALTER TABLE `mensagemmembromembro`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `noticiacliente`
+--
+ALTER TABLE `noticiacliente`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `noticiamembro`
+--
+ALTER TABLE `noticiamembro`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tarefa`
+--
+ALTER TABLE `tarefa`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -196,11 +470,84 @@ ALTER TABLE `entidadepublica`
   ADD CONSTRAINT `entidadepublica_ibfk_2` FOREIGN KEY (`Cidade`,`Pais`) REFERENCES `cidade` (`Nome`, `Pais`);
 
 --
+-- Limitadores para a tabela `feedbackorganizacaovirtual`
+--
+ALTER TABLE `feedbackorganizacaovirtual`
+  ADD CONSTRAINT `feedbackorganizacaovirtual_ibfk_1` FOREIGN KEY (`Festival`,`EmailAvaliador`,`EmailAvaliado`) REFERENCES `organizacaovirtual` (`IdFestival`, `EmailCliente`, `EmailMembro`);
+
+--
+-- Limitadores para a tabela `feedbacktarefa`
+--
+ALTER TABLE `feedbacktarefa`
+  ADD CONSTRAINT `feedbacktarefa_ibfk_1` FOREIGN KEY (`Tarefa`) REFERENCES `tarefa` (`Id`),
+  ADD CONSTRAINT `feedbacktarefa_ibfk_2` FOREIGN KEY (`EmailAvaliador`) REFERENCES `cliente` (`Email`),
+  ADD CONSTRAINT `feedbacktarefa_ibfk_3` FOREIGN KEY (`EmailAvaliado`) REFERENCES `membro` (`Email`);
+
+--
+-- Limitadores para a tabela `festival`
+--
+ALTER TABLE `festival`
+  ADD CONSTRAINT `festival_ibfk_1` FOREIGN KEY (`Cidade`,`Pais`) REFERENCES `cidade` (`Nome`, `Pais`);
+
+--
 -- Limitadores para a tabela `membro`
 --
 ALTER TABLE `membro`
   ADD CONSTRAINT `membro_ibfk_1` FOREIGN KEY (`Pais`) REFERENCES `pais` (`Codigo`),
   ADD CONSTRAINT `membro_ibfk_2` FOREIGN KEY (`Cidade`,`Pais`) REFERENCES `cidade` (`Nome`, `Pais`);
+
+--
+-- Limitadores para a tabela `mensagemclientemembro`
+--
+ALTER TABLE `mensagemclientemembro`
+  ADD CONSTRAINT `mensagemclientemembro_ibfk_1` FOREIGN KEY (`Emissor`) REFERENCES `cliente` (`Email`),
+  ADD CONSTRAINT `mensagemclientemembro_ibfk_2` FOREIGN KEY (`Recetor`) REFERENCES `membro` (`Email`);
+
+--
+-- Limitadores para a tabela `mensagemmembrocliente`
+--
+ALTER TABLE `mensagemmembrocliente`
+  ADD CONSTRAINT `mensagemmembrocliente_ibfk_1` FOREIGN KEY (`Emissor`) REFERENCES `membro` (`Email`),
+  ADD CONSTRAINT `mensagemmembrocliente_ibfk_2` FOREIGN KEY (`Recetor`) REFERENCES `cliente` (`Email`);
+
+--
+-- Limitadores para a tabela `mensagemmembromembro`
+--
+ALTER TABLE `mensagemmembromembro`
+  ADD CONSTRAINT `mensagemmembromembro_ibfk_1` FOREIGN KEY (`Emissor`) REFERENCES `membro` (`Email`),
+  ADD CONSTRAINT `mensagemmembromembro_ibfk_2` FOREIGN KEY (`Recetor`) REFERENCES `membro` (`Email`);
+
+--
+-- Limitadores para a tabela `noticiacliente`
+--
+ALTER TABLE `noticiacliente`
+  ADD CONSTRAINT `noticiacliente_ibfk_1` FOREIGN KEY (`Autor`) REFERENCES `cliente` (`Email`);
+
+--
+-- Limitadores para a tabela `noticiamembro`
+--
+ALTER TABLE `noticiamembro`
+  ADD CONSTRAINT `noticiamembro_ibfk_1` FOREIGN KEY (`Autor`) REFERENCES `membro` (`Email`);
+
+--
+-- Limitadores para a tabela `organizacaovirtual`
+--
+ALTER TABLE `organizacaovirtual`
+  ADD CONSTRAINT `organizacaovirtual_ibfk_1` FOREIGN KEY (`IdFestival`) REFERENCES `festival` (`Id`),
+  ADD CONSTRAINT `organizacaovirtual_ibfk_2` FOREIGN KEY (`EmailCliente`) REFERENCES `cliente` (`Email`),
+  ADD CONSTRAINT `organizacaovirtual_ibfk_3` FOREIGN KEY (`EmailMembro`) REFERENCES `membro` (`Email`);
+
+--
+-- Limitadores para a tabela `pedidoregistomembro`
+--
+ALTER TABLE `pedidoregistomembro`
+  ADD CONSTRAINT `pedidoregistomembro_ibfk_1` FOREIGN KEY (`EmailMembro`) REFERENCES `membro` (`Email`);
+
+--
+-- Limitadores para a tabela `tarefa`
+--
+ALTER TABLE `tarefa`
+  ADD CONSTRAINT `tarefa_ibfk_1` FOREIGN KEY (`Festival`,`Coordenador`,`Responsavel`) REFERENCES `organizacaovirtual` (`IdFestival`, `EmailCliente`, `EmailMembro`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

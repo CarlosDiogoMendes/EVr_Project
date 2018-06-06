@@ -34,19 +34,16 @@ class Cliente {
     }
 
     function insert() {        			
-        $query = "INSERT INTO " . $this->table_name . 
-              " SET " . $this->buildQueryAttributes();
+        $query = "INSERT INTO $this->table_name SET $this->buildQueryAttributes()";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
         $stmt = $this->bindValues($stmt);
         $stmt->execute();
-        //echo $query;
         return $stmt;
     }
 
-    function delete(){
-        $query = "DELETE FROM " . $this->table_name . 
-                " WHERE email = ?";
+    function delete() {
+        $query = "DELETE FROM $this->table_name WHERE email = ?";
         $stmt = $this->conn->prepare($query);
         $this->email = htmlspecialchars(strip_tags($this->email));
         $stmt->bindParam(1, $this->email);

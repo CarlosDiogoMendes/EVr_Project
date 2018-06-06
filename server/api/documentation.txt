@@ -3,8 +3,7 @@
 http://localhost/evr/registar_cliente.php
 
 Espera pedido:
-	1. {"email": um_email, "password": uma_password, "username": um_username, "nome": um_nome,
-		"telefone": um_telefone, "telemovel": um_telemovel, "morada": uma_morada }
+	1. {"email": "um_email", "password": "uma_password", "username": "um_username", "nome": "um_nome", "telefone": "um_telefone", "telemovel": "um_telemovel", "morada": "uma_morada" }
 
 Devolve resposta:
 	1. Sem sucesso porque nem todos os campos obrigatorios foram especificados:
@@ -19,7 +18,7 @@ Devolve resposta:
 http://localhost/evr/autenticar_cliente.php
 
 Espera pedido:
-	1. {"email": um_email, "password": uma_password}
+	1. {"email": "um_email", "password": "uma_password"}
 
 Devolve resposta:
 	1. Sem sucesso porque email e/ou password nao especificados:
