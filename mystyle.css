@@ -8,8 +8,19 @@
     margin:auto;
 }
 
+.carousel .carousel-item {
+    width:700px !important;
+}
+.carousel .carousel-item > .item > img {
+  width:640px;
+  height:360px;
+}
+
 .colors {
     background-color: #74A57F;
+}
+.carousel{
+  width:300px;
 }
 
 body {

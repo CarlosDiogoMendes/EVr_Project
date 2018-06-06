@@ -33,15 +33,21 @@
   </nav>
 
   <div class="bodypage">
-         <div id="index-banner" class="parallax-container">
-            <div class="section no-pad-bot">
-                <div class="container front-image">
-                    <br><br>
-                    <h1 class="header center teal-text text-lighten-2">Slogan</h1>
-                <br><br>
-                </div>
-            </div>
-         </div>
+       <div id="carousel-slider" class="carousel carousel-slider">
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem_festival.php?id=1"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem_festival.php?id=2"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem.php?id=1"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem_festival.php?id=3"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem_festival.php?id=4"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem.php?id=2"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem_festival.php?id=5"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem_festival.php?id=6"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem.php?id=3"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem_festival.php?id=7"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem_festival.php?id=8"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem.php?id=4"></a>
+           <a class="carousel-item"><img class="img-responsive" src="http://localhost/evr/get_imagem_festival.php?id=9"></a>
+        </div>
   </div>
 
   <div class="container">
@@ -157,18 +163,31 @@
   </footer>
 
 
-  <!--  Scripts-->
-  <script
-  src="https://code.jquery.com/jquery-2.2.4.js"
-  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-  crossorigin="anonymous"></script>
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-  <script>
-  $(document).ready(function(){
-    $('.modal').modal();
-  });
-</script>
+  <!--  Scripts--> 
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    
+    <script>
+        $(document).ready(function(){
+            $('.modal').modal();
+            $('.carousel.carousel-slider').carousel({
+                duration:500
+            });
+            var autoplay = true;
+            setInterval(function() { 
+                if(autoplay) 
+                    $('.carousel.carousel-slider').carousel('next'); 
+            }, 5000);
+            $('.carousel.carousel-slider').mousedown(function() { 
+                autoplay = false; 
+            });
+            $('.carousel.carousel-slider').mouseup(function() { 
+                autoplay = true; 
+            }); 
+            
+        })
+    </script>
 
   </body>
 </html>
