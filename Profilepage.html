@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Site EV</title>
+          
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" crossorigin="anonymous">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="sign_style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <nav class="white" role="navigation">
+            <div class="container resize-width">
+                <a id="logo-container" href="Homepage.html" class="brand-logo">Logo</a>
+                <span class="right hide-on-med-and-down black-text font-md">Registering</span>
+            </div>
+        </nav>
+        <div class="bodypage">
+            <div><h2 class="black-text center-align">Register</h2></div>
+            <div class="container resize-width">
+                <div class="section">
+                    <div class="row">
+                        <div class="col offset-m3 m3"><button id="button1" class="btn blue darken-4 repos">SignUp as Enterprise</button></div>
+                        <div class="col m3"><button id="button2" class="btn red repos">SignUp as Client</button></div>
+                        <div class="col m2"></div>
+                    </div>
+                    <div class="row" id="main">
+                    </div>                      
+                </div> 
+            </div>
+        </div>
+        <div id="modal1" class="modal">
+            <div class="modal-content resize-modal">
+              <h5 class="center">LOGIN</h5>
+              <p></p>
+              <br>
+              <input placeholder="Email" id="emailModal" type="email" class="validate"> 
+              <p></p>
+              <input placeholder="Password" id="passwordModal" type="password" class="validate">
+              <div class="row row-pos">
+                <p></p>
+                <button class="btn blue" id="logIn">Log In</button>
+                <span>Forgot password?</span>
+              </div>
+            </div>
+          </div>
+          <script
+        src="https://code.jquery.com/jquery-2.2.4.js"
+        integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous"></script>
+        <script src="sign.js"></script>
+        <script src="templates.js"></script>
+        <!--  Scripts-->
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+    </body>
+</html>
