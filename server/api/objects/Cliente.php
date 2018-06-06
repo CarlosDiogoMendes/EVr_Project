@@ -1,11 +1,9 @@
 <?php
 class Cliente {
-
-    // database connection and table name
-    private $conn;
-    private $table_name;			
     
-    // object properties
+    private $conn;
+    private $table_name;      
+    
     public $email;
     public $password;
     public $username;
@@ -14,14 +12,12 @@ class Cliente {
     public $telemovel;
     public $morada;
     public $avatar;
-
-    // constructor with $db as database connection
+    
     public function __construct($db) {
         $this->conn = $db;
         $this->table_name = "cliente";
     }
 
-    // read users
     function read($filter, $value) {
         $query = "SELECT * FROM $this->table_name";
         if ($filter != NULL && $value != NULL) {
@@ -32,16 +28,14 @@ class Cliente {
         $stmt->execute();
         return $stmt;
     }
-
-    function insert() {        			
-        $query = "INSERT INTO $this->table_name SET $this->buildQueryAttributes()";
+    function insert() {             
+        $query = "INSERT INTO $this->table_name SET " . $this->buildQueryAttributes();
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
         $stmt = $this->bindValues($stmt);
         $stmt->execute();
         return $stmt;
     }
-
     function delete() {
         $query = "DELETE FROM $this->table_name WHERE email = ?";
         $stmt = $this->conn->prepare($query);
@@ -50,7 +44,6 @@ class Cliente {
         $stmt->execute();
         return $stmt;
     }
-
     function addComma($res) {
       if(strlen($res) > 0) {
         $res .= ", ";
@@ -59,12 +52,12 @@ class Cliente {
     }
     
     function update(){
-        $query = "UPDATE " . $this->table_name . 
-              " SET " . $this->buildQueryAttributes() . 
-              " WHERE email = :email";
+        $query = "UPDATE $this->table_name SET " 
+                . $this->buildQueryAttributes() . " WHERE email = ?";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
         $stmt = $this->bindValues($stmt);
+        $stmt->bindParam(1, $this->email);
         $stmt->execute();
         return $stmt;
     }

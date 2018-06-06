@@ -4,36 +4,43 @@ function makeSignPageEnterprise() {
     <div class="row">
         <div class="input-field col m8">
             <i class="material-icons prefix">account_circle</i>
-            <input placeholder="Name" id="name" type="text" class="validate">                     
+            <input id="name" type="text" class="autocomplete validate">    
+            <label for="name">Name</label>                    
         </div>
         <div class="input-field col m8">
             <i class="material-icons prefix">email</i>
-            <input placeholder="Email" id="email" type="email" class="validate"> 
+            <input id="email" type="email" class="autocomplete validate"> 
+            <label for="email">Email</label>               
     </div>
         <div class="input-field col m6">
             <i class="material-icons prefix">fingerprint</i>
-            <input placeholder="Password" id="password" type="password" class="validate">
+            <input id="password" type="password" class="autocomplete validate">
+            <label for="passowrd">Password</label>               
         </div>
     </div>
     <div class="row">
         <div class="input-field col m6">
             <i class="material-icons prefix">phone</i>
-            <input placeholder="Phone Number" id="PhoneNumber" type="number" class="validate">
+            <input id="PhoneNumber" type="number" class="autocomplete validate">
+            <label for="PhoneNUmber">Phone number</label>               
     </div>
     </div>
     <div class="row">
         <div class="input-field col m6">
             <i class="material-icons prefix">location_on</i>
-            <input placeholder="Location" id="location" type="text" class="validate">
+            <input id="location" type="text" class="autocomplete validate">
+            <label for="location">Location</label>   
         </div>
         <div class="input-field col m6">
-            <input placeholder="Range of action" id="Range" type="number" class="validate">
+            <input id="Range" type="number" class="autocomplete validate">
+            <label for="Range">Range of action</label>       
         </div>    
     </div>
     <div class="row">
         <div class="input-field col m6">
             <i class="material-icons prefix">group</i>
-            <input placeholder="Number of workers" id="WorkersNumber" type="number" class="validate">
+            <input id="WorkersNumber" type="number" class="autocomplete validate">
+            <label for="WorkersNumber">Number of workers</label>       
     </div>
     <div class="row">
         <div class="col m8">
@@ -78,46 +85,54 @@ function makeSignPageClient() {
             <div class="row">
                 <div class="input-field col m6">
                     <i class="material-icons prefix">account_circle</i>
-                    <input placeholder="First Name" id="first_name" type="text" class="validate">                     
+                    <input id="first_name" type="text" class="autocomplete validate">   
+                    <label for="first_name">First name</label>                          
                 </div>
                 <div class="input-field col m6">
-                    <input placeholder="Last Name" id="last_name" type="text" class="validate">                     
+                    <input id="last_name" type="text" class="autocomplete validate"> 
+                    <label for="last_name">Last name</label>                    
                 </div>
             </div>    
             <div class="row">
                 <div class="input-field col m6">
                     <i class="material-icons prefix">insert_emoticon</i>
-                    <input placeholder="Username" id="username" type="text" class="validate">                     
+                    <input id="username" type="text" class="autocomplete validate"> 
+                    <label for="username">Username</label>
                 </div>
             </div>
             <div class="row">   
                 <div class="input-field col m6">
                     <i class="material-icons prefix">email</i>
-                    <input placeholder="Email" id="email" type="email" class="validate"> 
+                    <input id="email" type="email" class="autocomplete validate"> 
+                    <label for="email">Email</label>
                 </div>
             </div>
             <div class="row">   
                 <div class="input-field col m6">
                     <i class="material-icons prefix">fingerprint</i>
-                    <input placeholder="Password" id="password" type="password" class="validate">
+                    <input id="password" type="password" class="autocomplete validate">
+                    <label for="password">Password</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col m6">
                     <i class="material-icons prefix">phone</i>
-                    <input placeholder="Phone Number" id="PhoneNumber" type="number" class="validate">
+                    <input id="PhoneNumber" type="number" class="autocomplete validate">
+                    <label for="PhoneNumber">Phone number</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col m6">
                     <i class="material-icons prefix">phone</i>
-                    <input placeholder="Mobile Number" id="MobileNumber" type="number" class="validate">
+                    <input id="MobileNumber" type="number" class="autocomplete validate">
+                    <label for="MobileNumber">Mobile number</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col m6">
                     <i class="material-icons prefix">location_on</i>
-                    <input placeholder="Morada" id="Morada" type="text" class="validate">
+                    <input id="Address" type="text" class="autocomplete validate">
+                    <label for="Address">Address</label>
                 </div>
             </div>        
             <div class="row">  

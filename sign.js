@@ -9,14 +9,14 @@ function Enterprise (nome,email,password,number,location,range,workers,type){
     this.type = type;
 }
 
-function Client(first_name,last_name,username,email,password,number,m_number,morada) {
+function Client(first_name,last_name,username,email,password,number,m_number,address) {
     this.email = email;
     this.password = password;
     this.username = username;
     this.nome = first_name+' '+last_name;
     this.telefone = number;
     this.telemovel = m_number;
-    this.morada = morada;
+    this.address = address;
 }
 
 var type;
@@ -47,8 +47,8 @@ $('#button2').click(function(){
         var pass = document.getElementById('password').value;
         var number = document.getElementById('PhoneNumber').value;
         var m_number = document.getElementById('MobileNumber').value;
-        var morada = document.getElementById('Morada').value;
-        var cliente = new Client(first_name,last_name,username,email,pass,number,m_number,morada);
+        var address = document.getElementById('Address').value;
+        var cliente = new Client(first_name,last_name,username,email,pass,number,m_number,address);
         var cliente_JSON = JSON.stringify(cliente);
         console.log(cliente_JSON);
         insertClient(cliente_JSON);
@@ -73,8 +73,8 @@ function insertClient(client) {
     http_request.onreadystatechange = function(){
     
         if (http_request.readyState == 4  ){
-           // Javascript function JSON.parse to parse JSON data
-          console.log(http_request.responseText);
+           // TODO Javascript function JSON.parse to parse JSON data
+            M.toast({html: http_request.responseText})
         }
     }
 
@@ -103,8 +103,7 @@ function checkUser(email,pass) {
     
         if (http_request.readyState == 4  ){
            // Javascript function JSON.parse to parse JSON data
-          //alert(http_request.responseText.substring(13,44));
-            alert(http_request.responseText);
+            M.toast({html: http_request.responseText})
         }
     }
 
@@ -120,7 +119,7 @@ function loadJSONCountries(){
     http_request.onreadystatechange = function(){
     
        if (http_request.readyState == 4  ){
-          // Javascript function JSON.parse to parse JSON data
+          // TODO Javascript function JSON.parse to parse JSON data
           var jsonObj = JSON.parse(http_request.responseText);
 
           // jsonObj variable now contains the data structure and can
