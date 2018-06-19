@@ -11,10 +11,6 @@
 body {
   background-color: #fcfcfc;
 }
-#main,
-footer {
-  padding-left: 240px;
-}
 
 #input-select .input-field label {
   position: absolute;
@@ -2026,11 +2022,19 @@ tr.group:hover {
 ====================================================================================*/
 
 footer.page-footer {
-  padding-top: 0px;
-}
+  margin-top: 20px;
+  padding-top: 20px;
+  background-color: #00bcd4; }
+  footer.page-footer .footer-copyright {
+    overflow: hidden;
+    height: 50px;
+    line-height: 50px;
+    color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(51, 51, 51, 0.08); }
 /*----------------------------------------
     footer charts
 ------------------------------------------*/
+
 
 #world-map-markers {
   height: 300px;
@@ -2071,3 +2075,13 @@ footer.page-footer {
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+/* Carousel */
+.carousel .carousel-item {
+    width: 700px !important;
+    padding-top: 20px;
+}
+.carousel .carousel-item > .item > img {
+    width: 640px;
+    height: 360px;
+}

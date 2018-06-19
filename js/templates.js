@@ -143,8 +143,8 @@ function makeSignPageClient() {
 }
 
 function mostrarMembros() {
-    para cada membro:
-    <div id="profile-page-header" class="card">
+    //para cada membro:
+    return `<div id="profile-page-header" class="card">
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src="user-profile-bg.jpg" alt="user background">                    
                 </div>
@@ -189,5 +189,5 @@ function mostrarMembros() {
                     <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 18th June 1990</p>
                     <p><i class="mdi-device-airplanemode-on cyan-text text-darken-2"></i> BAR - AUS</p>
                 </div>
-            </div>
+            </div>`;
 }
