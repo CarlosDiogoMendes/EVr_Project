@@ -9,8 +9,6 @@ class Pais {
     public $codigo;
     public $nome;
     public $capital;
-    public $area;
-    public $populacao;
 
     // constructor with $db as database connection
     public function __construct($db) {
@@ -64,7 +62,7 @@ class Pais {
               " SET " . $this->buildQueryAttributes() . 
               " WHERE codigo = :codigo";
         $stmt = $this->conn->prepare($query);
-        sanitize();
+        $this->sanitize();
         $stmt = bindValues($stmt);
         $stmt->execute();
         return $stmt;
@@ -83,14 +81,6 @@ class Pais {
         $res = $this->addComma($res);
         $res .= "capital = :capital";
       }
-      if($this->area) {
-        $res = $this->addComma($res);
-        $res .= "area = :area";
-      }
-      if($this->populacao) {
-        $res = $this->addComma($res);
-        $res .= "populacao = :populacao";
-      }
       return $res;
     }
     
@@ -104,12 +94,6 @@ class Pais {
       if ($this->capital) {
         $this->capital=htmlspecialchars(strip_tags($this->capital));
       }
-      if ($this->area) {
-        $this->area=htmlspecialchars(strip_tags($this->area));
-      }
-      if ($this->populacao) {
-        $this->populacao=htmlspecialchars(strip_tags($this->populacao));
-      }
     }
     
     private function bindValues($stmt) {
@@ -121,12 +105,6 @@ class Pais {
       }
       if ($this->capital) {
         $stmt->bindParam(":capital", $this->capital);
-      }
-      if ($this->area) {
-         $stmt->bindParam(":area", $this->area);
-      }
-      if ($this->populacao) {
-         $stmt->bindParam(":populacao", $this->populacao);
       }
       return $stmt;
     }

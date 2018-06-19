@@ -25,9 +25,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     $pais_item = array(
         "codigo" => $Codigo,
         "nome" => $Nome,
-        "capital" => $Capital,
-        "area" => $Area,
-        "populacao" => $Populacao
+        "capital" => $Capital
     );
     array_push($paises, $pais_item);
 }

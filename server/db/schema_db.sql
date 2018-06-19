@@ -1,3 +1,30 @@
+CREATE OR REPLACE TABLE Pais 
+(
+ 	Codigo VARCHAR(4),
+	Nome VARCHAR(32) NOT NULL UNIQUE,
+ 	Capital VARCHAR(35),
+ 	PRIMARY KEY (Codigo)
+);
+
+CREATE OR REPLACE TABLE Cidade
+(
+	Nome VARCHAR(35),
+ 	Pais VARCHAR(4),
+ 	PRIMARY KEY (Nome, Pais),
+ 	FOREIGN KEY (Pais) REFERENCES Pais(Codigo)
+ );
+
+CREATE OR REPLACE TABLE Localidade
+(
+	Nome VARCHAR(35),
+	Cidade VARCHAR(35),
+	Pais VARCHAR(4),
+	PRIMARY KEY (Nome, Cidade, Pais),
+	FOREIGN KEY (Cidade) REFERENCES Cidade(Nome),
+	FOREIGN KEY (Pais) REFERENCES Pais(Codigo)
+);
+
+
 CREATE OR REPLACE TABLE Cliente
 (
 	Email       VARCHAR(255),
@@ -31,31 +58,6 @@ CREATE OR REPLACE TABLE Membro 	# fornecedor/servico
 	FOREIGN KEY (Localidade, Cidade, Pais) REFERENCES Localidade(Nome, Cidade, Pais)
 );
 
-CREATE OR REPLACE TABLE Pais 
-(
- 	Codigo VARCHAR(4),
-	Nome VARCHAR(32) NOT NULL UNIQUE,
- 	Capital VARCHAR(35),
- 	PRIMARY KEY (Codigo)
-);
-
-CREATE OR REPLACE TABLE Cidade
-(
-	Nome VARCHAR(35),
- 	Pais VARCHAR(4),
- 	PRIMARY KEY (Nome, Pais),
- 	FOREIGN KEY (Pais) REFERENCES Pais(Codigo)
- );
-
-CREATE OR REPLACE TABLE Localidade
-(
-	Nome VARCHAR(35),
-	Cidade VARCHAR(35),
-	Pais VARCHAR(4),
-	PRIMARY KEY (Nome, Cidade, Pais),
-	FOREIGN KEY (Cidade) REFERENCES Cidade(Nome),
-	FOREIGN KEY (Pais) REFERENCES Pais(Codigo)
-);
 
 CREATE OR REPLACE TABLE EntidadePublica
 (
