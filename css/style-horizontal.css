@@ -49,3 +49,16 @@ header .brand-logo img{
   padding: 10px;
   font-weight: 400;
 }
+
+/*IE Specific CSS */
+@media screen and (min-width:0\0) and (min-resolution: +72dpi) {
+  #horizontal-nav ul li{
+    min-width: 110px;
+  }
+  #horizontal-nav .dropdown-menu span i{    
+    line-height: 0px;
+    position: absolute;
+    top: 10px;
+    right: -20px;
+  }
+}

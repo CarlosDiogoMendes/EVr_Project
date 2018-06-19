@@ -142,15 +142,9 @@ function makeSignPageClient() {
             </div>`;
 }
 
-<<<<<<< HEAD:js/scripts/templates.js
 /*function mostrarMembros() {
     para cada membro:
     <div id="profile-page-header" class="card">
-=======
-function mostrarMembros() {
-    //para cada membro:
-    return `<div id="profile-page-header" class="card">
->>>>>>> 319a7405a98cafc1e27cc31d3e87a35787e00656:js/templates.js
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src="user-profile-bg.jpg" alt="user background">                    
                 </div>
@@ -195,10 +189,5 @@ function mostrarMembros() {
                     <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 18th June 1990</p>
                     <p><i class="mdi-device-airplanemode-on cyan-text text-darken-2"></i> BAR - AUS</p>
                 </div>
-<<<<<<< HEAD:js/scripts/templates.js
             </div>
 }*/
-=======
-            </div>`;
-}
->>>>>>> 319a7405a98cafc1e27cc31d3e87a35787e00656:js/templates.js
