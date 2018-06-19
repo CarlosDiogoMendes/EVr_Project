@@ -11,10 +11,6 @@
 body {
   background-color: #fcfcfc;
 }
-#main,
-footer {
-  padding-left: 240px;
-}
 
 #input-select .input-field label {
   position: absolute;
@@ -2071,3 +2067,13 @@ footer.page-footer {
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+/* Carousel */
+.carousel .carousel-item {
+    width: 700px !important;
+    padding-top: 20px;
+}
+.carousel .carousel-item > .item > img {
+    width: 640px;
+    height: 360px;
+}
