@@ -4,23 +4,30 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>Site EV</title>
-          
+		<title>Registar</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" crossorigin="anonymous">
-        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-        <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="css/sign_style.css" rel="stylesheet" type="text/css">
+        <link href="css/materialize1.0.0.css" type="text/css" rel="stylesheet"/>
+        <link href="css/style.css" type="text/css" rel="stylesheet"/>
     </head>
-
-    <body>
-        <nav class="white" role="navigation">
-            <div class="container resize-width">
-                <a id="logo-container" href="Homepage.html" class="brand-logo">Logo</a>
-                <span class="right hide-on-med-and-down black-text font-md">Registering</span>
-            </div>
-        </nav>
+<body data-gr-c-s-loaded="true" class="loaded"> 
+	<div id="loader-wrapper">
+         <div id="loader"></div>
+         <div class="loader-section section-left"></div>
+         <div class="loader-section section-right"></div>
+      </div>
+      <header id="header" class="page-topbar">
+         <div class="navbar-fixed">
+            <nav class="cyan">
+               <div class="nav-wrapper">
+                  <ul class="left">
+                     <li>
+                       <a id="logo-container" class="brand-logo color-white">VBE Festival</a>
+                     </li>
+                  </ul>
+				</div>
+			 </nav>
+		  </div>
+      </header>
         <div class="bodypage">
             <div><h2 class="black-text center-align">Register</h2></div>
             <div class="container resize-width">
@@ -50,15 +57,25 @@
               </div>
             </div>
           </div>
-          <script
-        src="https://code.jquery.com/jquery-2.2.4.js"
-        integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-        crossorigin="anonymous"></script>
-        <script src="./js/scripts/sign.js"></script>
-        <script src="./js/scripts/templates.js"></script>
-        <!--  Scripts-->
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-
+		
     </body>
+		
+      <!-- ================================================
+         Footer
+         ================================================ -->
+      <footer class="page-footer">
+         <div class="footer-copyright">
+            <div class="container">
+               <span><a class="grey-text text-lighten-4" target="_blank">Empresas Virtuais</a></span>
+               <span class="right"> <a class="grey-text text-lighten-4">FCT @ UNL</a></span>
+            </div>
+         </div>
+      </footer>
+		
+		
+          <script src="js/auxs/jquery3.3.1.js"></script>
+        <script src="js/scripts/sign.js"></script>
+        <script src="js/scripts/templates.js"></script>
+        <script src="js/auxs/materialize.js"></script>
+
 </html>

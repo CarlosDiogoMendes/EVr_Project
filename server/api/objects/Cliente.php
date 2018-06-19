@@ -44,6 +44,7 @@ class Cliente {
         $stmt->execute();
         return $stmt;
     }
+    
     function addComma($res) {
       if(strlen($res) > 0) {
         $res .= ", ";

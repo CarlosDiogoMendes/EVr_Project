@@ -1,5 +1,5 @@
 <?php
-class Festival {
+class Imagem {
     
     private $conn;
     private $table_name;      
@@ -22,6 +22,7 @@ class Festival {
         $stmt->execute();
         return $stmt;
     }
+    
     function insert() {             
         $query = "INSERT INTO $this->table_name SET " . $this->buildQueryAttributes();
         $stmt = $this->conn->prepare($query);
@@ -30,14 +31,16 @@ class Festival {
         $stmt->execute();
         return $stmt;
     }
+    
     function delete() {
-        $query = "DELETE FROM $this->table_name WHERE id = ?";
+        $query = "DELETE FROM $this->table_name WHERE Id = ?";
         $stmt = $this->conn->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
         return $stmt;
     }
+    
     function addComma($res) {
       if(strlen($res) > 0) {
         $res .= ", ";
@@ -47,7 +50,7 @@ class Festival {
     
     function update(){
         $query = "UPDATE $this->table_name SET " 
-                . $this->buildQueryAttributes() . " WHERE id = ?";
+                . $this->buildQueryAttributes() . " WHERE Id = ?";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
         $stmt = $this->bindValues($stmt);
@@ -63,7 +66,7 @@ class Festival {
       }
       if($this->imagem) {
         $res = $this->addComma($res);
-        $res .= "Image=:Imagem";
+        $res .= "Imagem=:Imagem";
       }
       return $res;
     }

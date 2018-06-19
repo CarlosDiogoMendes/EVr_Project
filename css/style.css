@@ -2023,6 +2023,7 @@ tr.group:hover {
 
 footer.page-footer {
   padding-top: 0px;
+  background-color: #00bcd4 !important;
 }
 /*----------------------------------------
     footer charts

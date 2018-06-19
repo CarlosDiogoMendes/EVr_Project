@@ -11,9 +11,9 @@
     
     $database = new Database();
     $db = $database->getConnection();
-    $festival = new Festival($db);
+    $imagem = new Imagem($db);
     
     $id = filter_input(INPUT_GET, 'id');
-    $stmt = $festival->read("id", $id);
+    $stmt = $imagem->read("id", $id);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     echo $row['Imagem'];

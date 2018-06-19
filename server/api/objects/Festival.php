@@ -26,6 +26,7 @@ class Festival {
         $stmt->execute();
         return $stmt;
     }
+    
     function insert() {             
         $query = "INSERT INTO $this->table_name SET " . $this->buildQueryAttributes();
         $stmt = $this->conn->prepare($query);
