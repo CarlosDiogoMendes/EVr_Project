@@ -33,7 +33,7 @@ function makeSignPageEnterprise() {
         </div>
         <div class="input-field col m6">
             <input id="Range" type="number" class="autocomplete validate">
-            <label for="Range">Range of action</label>       
+            <label for="Range">Range of action(km)</label>       
         </div>    
     </div>
     <div class="row">
@@ -48,23 +48,23 @@ function makeSignPageEnterprise() {
             <p></p>
             <form>
                 <label>
-                    <input type="radio" id="Catering" name="group" class="with-gap">
+                    <input type="radio" id="Catering" name="group" class="with-gap gap">
                     <span>Catering</span>
                 </label>
                 <label>
-                    <input type="radio" id="Segurança" name="group" class="with-gap">
+                    <input type="radio" id="Segurança" name="group" class="with-gap gap">
                     <span>Segurança</span>
                 </label>
                 <label>
-                    <input type="radio" id="Animaçao" name="group" class="with-gap">
+                    <input type="radio" id="Animaçao" name="group" class="with-gap gap">
                     <span>Animação</span>
                 </label>
                 <label>
-                    <input type="radio" id="Limpeza" name="group" class="with-gap">
+                    <input type="radio" id="Limpeza" name="group" class="with-gap gap">
                     <span>Limpeza</span>
                 </label>
                 <label>
-                    <input type="radio" id="Serviços" name="group" class="with-gap">
+                    <input type="radio" id="Serviços" name="group" class="with-gap gap">
                     <span>Serviços Técnicos</span>
                 </label>
             </form>    
@@ -142,7 +142,7 @@ function makeSignPageClient() {
             </div>`;
 }
 
-function mostrarMembros() {
+/*function mostrarMembros() {
     para cada membro:
     <div id="profile-page-header" class="card">
                 <div class="card-image waves-effect waves-block waves-light">
@@ -190,4 +190,4 @@ function mostrarMembros() {
                     <p><i class="mdi-device-airplanemode-on cyan-text text-darken-2"></i> BAR - AUS</p>
                 </div>
             </div>
-}
+}*/

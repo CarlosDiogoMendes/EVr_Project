@@ -10,7 +10,9 @@
       <link rel="stylesheet" href="css/custom-style.css" type="text/css">
       <link rel="stylesheet" href="css/style-horizontal.css" type="text/css">
       <link rel="stylesheet" href="css/perfect-scrollbar.css" type="text/css">
-  	  <link rel="stylesheet" href="css/chartist.min.css" type="text/css">
+      <link rel="stylesheet" href="css/chartist.min.css" type="text/css">
+      <link href="css/fullcalendar.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+
    </head>
    <body data-gr-c-s-loaded="true" class="loaded">
       <div id="loader-wrapper">
@@ -66,34 +68,28 @@
                            <li id='myMessages'><a  class="cyan-text">Mensagens</a></li>
                         </ul>
                      </li>
-                     <li id='newVO'>
+                     <li id='myProfile'>
                         <a class="cyan-text">
-                        <i class="large material-icons">fiber_new</i>
-                        <span>Criar nova VO</span>
+                        <i class="large material-icons">assignment_ind</i>
+                        <span>Ver meu perfil</span>
                         </a>
                      </li>
-                     <li id='newTask'>
+                     <li id='messages'>
                         <a class="cyan-text">
-                        <i class="large material-icons">fiber_new</i>
-                        <span>Criar nova Tarefa</span>
+                        <i class="large material-icons">chat</i>
+                        <span>Mensagens</span>
                         </a>
                      </li>
-                     <li id='checkEnterprises'>
+                     <li id='calendar'>
                         <a class="cyan-text">
-                        <i class="large material-icons">dns</i>
-                        <span>Ver Empresas</span>
+                        <i class="large material-icons">event</i>
+                        <span>Agenda</span>
                         </a>
                      </li>
-                     <li id='checkPartners'>
+                     <li id='opportunities'>
                         <a class="cyan-text">
-                        <i class="large material-icons">people</i>
-                        <span>Parceiros</span>
-                        </a>
-                     </li>
-                     <li id='checkFestivals'>
-                        <a class="cyan-text">
-                        <i class="large material-icons">toys</i>
-                        <span>Festivais</span>
+                        <i class="large material-icons">attach_money</i>
+                        <span>Procurar oportunidades</span>
                         </a>
                      </li>
                   </ul>
@@ -136,7 +132,7 @@
                      <span class="task-cat pink">Rock in Rio Lisboa 2018</span>
                   </li>
                   <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                     <input type="checkbox" id="task4" checked="checked" disabled="disabled">
+                     <input type="checkbox" id="task4" checked="checked">
                      <label for="task4" style="text-decoration: line-through;">Otimizar processo y!
                      <a class="secondary-content"><span class="ultra-small">04 Junho 2018</span></a></label>
                      <span class="task-cat teal">Sumol Summer Fest 2018</span>
@@ -149,29 +145,29 @@
                      <h4 class="vo-card-title">As Minhas VOs</h4>
                   </li>
                   <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                     <input type="checkbox" id="task1">
-                     <label for="task1" style="text-decoration: none;">Contratar uma empresa para limpeza. 
+                     <input type="checkbox" id="task5">
+                     <label for="task5" style="text-decoration: none;">Contratar uma empresa para limpeza. 
                      <a class="secondary-content"><span class="ultra-small">07 Junho 2018</span></a>
                      </label>
                      <span class="task-cat teal">Sumol Summer Fest 2018</span>
                   </li>
                   <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                     <input type="checkbox" id="task2">
-                     <label for="task2" style="text-decoration: none;">Fazer aquilo.
+                     <input type="checkbox" id="task6">
+                     <label for="task6" style="text-decoration: none;">Fazer aquilo.
                      <a class="secondary-content"><span class="ultra-small">06 Junho 2018</span></a>
                      </label>
                      <span class="task-cat purple">NOS Primavera Sound 2018</span>
                   </li>
                   <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                     <input type="checkbox" id="task3" checked="checked">
-                     <label for="task3" style="text-decoration: line-through;">Perguntar tal à empresa x.
+                     <input type="checkbox" id="task7" checked="checked">
+                     <label for="task7" style="text-decoration: line-through;">Perguntar tal à empresa x.
                      <a class="secondary-content"><span class="ultra-small">06 Junho 2018</span></a>
                      </label>
                      <span class="task-cat pink">Rock in Rio Lisboa 2018</span>
                   </li>
                   <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                     <input type="checkbox" id="task4" checked="checked" disabled="disabled">
-                     <label for="task4" style="text-decoration: line-through;">Otimizar processo y!
+                     <input type="checkbox" id="task8" checked="checked">
+                     <label for="task8" style="text-decoration: line-through;">Otimizar processo y!
                      <a class="secondary-content"><span class="ultra-small">04 Junho 2018</span></a></label>
                      <span class="task-cat teal">Sumol Summer Fest 2018</span>
                   </li>
@@ -375,7 +371,15 @@
       <script type="text/javascript" src="js/auxs/perfect-scrollbar.min.js"></script>
 	  <script type="text/javascript" src="js/auxs/chartist.min.js"></script>
 	  <script type="text/javascript" src="js/auxs/plugins.js"></script>
-    <script type="text/javascript" src="js/auxs/jquery-autocomplete.js"></script>
-    <script type="text/javascript" src="js/scripts/userpage.js"></script>
-      <script type="text/javascript" src="js/scripts/user_templates.js"></script>
+    <!-- <script type="text/javascript" src="js/jquery-autocomplete.js"></script> -->
+
+    <!-- <script type="text/javascript" src="js/jquery-ui.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script> -->
+    <!-- <script type="text/javascript" src="js/moment.min.js"></script> -->
+    <!-- <script type="text/javascript" src="js/fullcalendar.js"></script>
+    <script type="text/javascript" src="js/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="js/fullcalendar-script.js"></script> -->
+
+    <script type="text/javascript" src="js/scripts/enterprise_page.js"></script>
+    <script type="text/javascript" src="js/scripts/enterprise_templates.js"></script>
       

@@ -33,7 +33,10 @@ $('#button1').click(function(){
         var workers = document.getElementById('WorkersNumber').value;
         var type = checkOptions();
         var enterprise = new Enterprise(nome,email,pass,number,location,range,workers,type);
-        console.log(enterprise);
+        var enterprise_JSON = JSON.stringify(enterprise);
+        console.log(enterprise_JSON);
+        //insertEnterprise(enterprise_JSON);
+        
     })
 });
 
@@ -57,7 +60,7 @@ $('#button2').click(function(){
 });
 
 function checkOptions(){
-    var type='batata';
+    //var type='batata';
     if($('#Catering').is(':checked')) { type = "Catering"; }
     else if($('#Segurança').is(':checked')) { type = "Segurança"; }
     else if($('#Animaçao').is(':checked')) { type = "Animaçao"; }
@@ -74,12 +77,32 @@ function insertClient(client) {
     
         if (http_request.readyState == 4  ){
            // TODO Javascript function JSON.parse to parse JSON data
-            M.toast({html: http_request.responseText})
+           response= JSON.parse(http_request.responseText);
+           console.log(response.message);
+            M.toast({html: response.message})
         }
     }
 
     http_request.open("POST", data_file, true);
     http_request.send(client);
+}
+
+function insertEnterprise(enterprise) {
+    var data_file = "http://localhost/evr/registar_empresa.php";
+    var http_request = new XMLHttpRequest();
+    
+    http_request.onreadystatechange = function(){
+    
+        if (http_request.readyState == 4  ){
+           // TODO Javascript function JSON.parse to parse JSON data
+           response= JSON.parse(http_request.responseText);
+           console.log(response.message);
+            M.toast({html: response.message})
+        }
+    }
+
+    http_request.open("POST", data_file, true);
+    http_request.send(enterprise);
 }
 
 function signIn() {
@@ -92,6 +115,7 @@ function signIn() {
         var pass = document.getElementById('passwordModal').value;
         console.log('email:'+ email + ' pass:'+pass);
         checkUser(email,pass);
+        //location.href = "www.yoursite.com";
     })
 }
 
@@ -103,7 +127,12 @@ function checkUser(email,pass) {
     
         if (http_request.readyState == 4  ){
            // Javascript function JSON.parse to parse JSON data
-            M.toast({html: http_request.responseText})
+           response= JSON.parse(http_request.responseText);
+           console.log(response);
+            M.toast({html: response.message});
+            if(response.errorCode === ''){
+                location.href = "Userpage.html";
+            }
         }
     }
 

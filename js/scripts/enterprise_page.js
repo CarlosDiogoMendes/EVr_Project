@@ -42,29 +42,25 @@ function toggleFullScreen(element)
 $(document).ready(function(){
 	$('.waves-effect.waves-block.waves-light.toogle-fullscreen').click(function() { 
 		toggleFullScreen();
-	});
-
-$('#autocomplete-input').autocomplete({
-    lookup: ['Manel','José','Maria','André','Adriana','Inês']
+    });
+    
+    $('#myProfile').click(function(){
+        console.log('click');
+        $('#profile-page-wall').html(make_Profile());
+    });
+    
+    $('#messages').click(function(){
+        console.log('clickMessages');
+        $('#profile-page-wall').html(make_Message());
+    }); 
+    
+    $('#calendar').click(function(){
+        console.log('clickCalen');
+        $('#profile-page-wall').html(make_Calendar());
+    });
+    
+    $('#opportunities').click(function(){
+        console.log('clickOPP');
+        $('#profile-page-wall').html(make_Opportunities());
+    });
 });
-
-/*// ajax lookup
-$('#autocomplete-input').autocomplete({
-    serviceUrl: '/autocomplete/countries'
-});
-
-Response from the server must be JSON formatted following JavaScript object:
-
-{
-    // Query is not required as of version 1.2.5
-    "query": "Unit",
-    "suggestions": [
-        { "value": "United Arab Emirates", "data": "AE" },
-        { "value": "United Kingdom",       "data": "UK" },
-        { "value": "United States",        "data": "US" }
-    ]
-}*/
-
-
-  });
-      
