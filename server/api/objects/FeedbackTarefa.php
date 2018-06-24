@@ -53,13 +53,17 @@ class FeedbackTarefa {
     }
     
     function update($tarefa, $emailAvaliador, $emailAvaliado) {
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE tarefa = ? AND emailAvaliador = ? AND emailAvaliado = ?";
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() 
+                . " WHERE tarefa=:Tarefa AND emailAvaliador=:EmailAvaliador AND emailAvaliado=:EmailAvaliado";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $tarefa=htmlspecialchars(strip_tags($tarefa));
+        $emailAvaliador=htmlspecialchars(strip_tags($emailAvaliador));
+        $emailAvaliado=htmlspecialchars(strip_tags($emailAvaliado));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $tarefa);
-        $stmt->bindParam(2, $emailAvaliador);
-        $stmt->bindParam(3, $emailAvaliado);
+        $stmt->bindParam(":Tarefa", $tarefa);
+        $stmt->bindParam(":EmailAvaliador", $emailAvaliador);
+        $stmt->bindParam(":EmailAvaliado", $emailAvaliado);
         $stmt->execute();
         return $stmt;
     }

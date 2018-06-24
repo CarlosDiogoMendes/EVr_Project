@@ -55,13 +55,16 @@ class Localidade {
     }
     
     function update($nome, $cidade, $pais) {
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE nome = ? AND cidade = ? AND pais = ?";
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE nome=:Nome AND cidade=:Cidade AND pais=:Pais";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $nome = htmlspecialchars(strip_tags($nome));
+        $cidade = htmlspecialchars(strip_tags($cidade));
+        $pais = htmlspecialchars(strip_tags($pais));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $nome);
-        $stmt->bindParam(2, $cidade);
-        $stmt->bindParam(3, $pais);
+        $stmt->bindParam(":Nome", $nome);
+        $stmt->bindParam(":Cidade", $cidade);
+        $stmt->bindParam(":Pais", $pais);
         $stmt->execute();
         return $stmt;
     }

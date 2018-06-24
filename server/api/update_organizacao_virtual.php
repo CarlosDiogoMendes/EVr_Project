@@ -12,18 +12,20 @@
     $database = new Database();
     $db = $database->getConnection();
     $organizacaoVirtual = new OrganizacaoVirtual($db);
+    
     $data = json_decode(file_get_contents("php://input"));
- 
     echo '{ ';
-    if ($data == null || $data->idFestival == null || $data->emailCliente == null || $data->emailEmpresa == null) {
-         echo '"message":"IdFestival, emailCliente and emailEmpresa values must be specified"';
+    if ($data == null || !isset($data->idFestival) || 
+            (!isset($data->emailCliente) && !isset($data->emailEmpresa) && !isset($data->organizacaoAprovada))) {
+         echo '"message": "New values for virtual organization must be specified"';
     } else {
-        $organizacaoVirtual->idFestival = $data->idFestival;
-        $organizacaoVirtual->emailCliente = $data->emailCliente;
-        $organizacaoVirtual->emailEmpresa = $data->emailEmpresa;
-        $organizacaoVirtual->organizacaoAprovada = false;
-        $stmt = $organizacaoVirtual->insert();
+        $organizacaoVirtual->emailCliente = isset($data->emailCliente) ? $data->emailCliente : null;
+        $organizacaoVirtual->emailEmpresa = isset($data->emailEmpresa) ? $data->emailEmpresa : null;
+        $organizacaoVirtual->organizacaoAprovada = isset($data->organizacaoAprovada) ? $data->organizacaoAprovada : null;
+        $stmt = $organizacaoVirtual->update($data->idFestival);
         $error = $stmt->errorInfo();
-        echo '"message":"'.$error[2].'"';
+        echo '"message":"' . $error[2] . '"';
     }
     echo ' }';
+
+

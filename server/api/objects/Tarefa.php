@@ -37,11 +37,11 @@ class Tarefa {
         $stmt->execute();
         return $stmt;
     }
-    function delete() {
+    function delete($id) {
         $query = "DELETE FROM $this->table_name WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $this->id = htmlspecialchars(strip_tags($this->id));
-        $stmt->bindParam(1, $this->id);
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bindParam(1, $id);
         $stmt->execute();
         return $stmt;
     }
@@ -53,12 +53,13 @@ class Tarefa {
       return $res;
     }
     
-    function update(){
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE id = ?";
+    function update($id) {
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE id=:Id";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $this->id);
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bindParam(":Id", $id);
         $stmt->execute();
         return $stmt;
     }

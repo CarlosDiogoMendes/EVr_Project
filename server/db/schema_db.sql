@@ -51,11 +51,10 @@ CREATE OR REPLACE TABLE Empresa 	# fornecedor/servico
 	NumTrabalhadores INTEGER(10) NOT NULL,
 	ZonaOperacao     INTEGER(10) NOT NULL,
 	Tipo 		     ENUM ('Jurídico','Logistico','Catering','Segurança','Limpeza','Técnico','Animações') NOT NULL,
-	RegistoAprovado	 BOOLEAN NOT NULL,
+	RegistoAprovado  BOOLEAN NOT NULL,
 	PRIMARY KEY (Email),
 	FOREIGN KEY (Localidade, Cidade, Pais) REFERENCES Localidade(Nome, Cidade, Pais)
 );
-
 
 CREATE OR REPLACE TABLE EntidadePublica
 (
@@ -125,11 +124,11 @@ CREATE OR REPLACE TABLE MensagemCliente
 
 CREATE OR REPLACE TABLE MensagemEmpresa
 (
-	Id			INT(11) AUTO_INCREMENT,
-	Emissor		VARCHAR(255) NOT NULL,
-	DataTempo	DATETIME NOT NULL,
-	Mensagem    VARCHAR(20000) NOT NULL,
-	IdOrganizacao  INT(11) NOT NULL,
+	Id				INT(11) AUTO_INCREMENT,
+	Emissor			VARCHAR(255) NOT NULL,
+	DataTempo		DATETIME NOT NULL,
+	Mensagem    	VARCHAR(20000) NOT NULL,
+	IdOrganizacao   INT(11) NOT NULL,
 	PRIMARY KEY (Id),
 	FOREIGN KEY (Emissor) REFERENCES Empresa(Email),
 	FOREIGN KEY (IdOrganizacao) REFERENCES OrganizacaoVirtual(IdFestival)
@@ -154,6 +153,7 @@ CREATE OR REPLACE TABLE OrganizacaoVirtual
 	IdFestival		INT(11),
 	EmailCliente	VARCHAR(255),
 	EmailEmpresa	VARCHAR(255),
+	OrganizacaoAprovada  BOOLEAN NOT NULL,
 	PRIMARY KEY (IdFestival, EmailCliente, EmailEmpresa),
 	FOREIGN KEY (IdFestival) REFERENCES Festival(Id),
 	FOREIGN KEY (EmailCliente) REFERENCES Cliente(Email),

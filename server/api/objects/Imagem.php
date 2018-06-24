@@ -36,7 +36,7 @@ class Imagem {
     function delete($id) {
         $query = "DELETE FROM $this->table_name WHERE Id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $id);
         $stmt->execute();
         return $stmt;
     }
@@ -49,11 +49,12 @@ class Imagem {
     }
     
     function update($id) {
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE Id = ?";
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE Id=:Id";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $id=htmlspecialchars(strip_tags($id));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $id);
+        $stmt->bindParam(":Id", $id);
         $stmt->execute();
         return $stmt;
     }

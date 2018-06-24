@@ -52,11 +52,12 @@ class EntidadePublica {
     }
     
     function update($contacto) {
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE contacto = ?";
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE contacto=:Contacto";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $contacto=htmlspecialchars(strip_tags($contacto));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $contacto);
+        $stmt->bindParam(":Contacto", $contacto);
         $stmt->execute();
         return $stmt;
     }

@@ -53,13 +53,16 @@ class FeedbackOrganizacaoVirtual {
     }
     
     function update($festival, $emailAvaliador, $emailAvaliado) {
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE festival = ? AND emailAvaliador = ? AND emailAvaliado = ?";
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE festival=:Festival AND emailAvaliador=:EmailAvaliador AND emailAvaliado=:EmailAvaliado";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $festival=htmlspecialchars(strip_tags($festival));
+        $emailAvaliador=htmlspecialchars(strip_tags($emailAvaliador));
+        $emailAvaliado=htmlspecialchars(strip_tags($emailAvaliado));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $festival);
-        $stmt->bindParam(2, $emailAvaliador);
-        $stmt->bindParam(3, $emailAvaliado);
+        $stmt->bindParam(":Festival", $festival);
+        $stmt->bindParam(":EmailAvaliador", $emailAvaliador);
+        $stmt->bindParam(":EmailAvaliado", $emailAvaliado);
         $stmt->execute();
         return $stmt;
     }

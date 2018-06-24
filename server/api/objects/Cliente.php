@@ -55,11 +55,12 @@ class Cliente {
     }
     
     function update($email) {
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE email = ?";
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE email=:Email";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $email=htmlspecialchars(strip_tags($email));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $email);
+        $stmt->bindParam(":Email", $email);
         $stmt->execute();
         return $stmt;
     }

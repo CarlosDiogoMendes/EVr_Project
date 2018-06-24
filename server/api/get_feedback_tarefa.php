@@ -7,26 +7,30 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 include_once './config/Database.php';
-include_once './objects/OrganizacaoVirtual.php';
+include_once './objects/FeedbackTarefa.php';
 
 $database = new Database();
 $db = $database->getConnection();
-$organizacaoVirtual = new OrganizacaoVirtual($db);
+$feedbackTarefa = new FeedbackTarefa($db);
 
 $filter = filter_input(INPUT_GET, 'filter');
 $value = $filter != NULL ? filter_input(INPUT_GET, 'value') : NULL;
 
-$stmt = $organizacaoVirtual->read($filter, $value);
+$stmt = $feedbackTarefa->read($filter, $value);
 
-$organizacoesVirtuais = array();
+$feedbacksTarefa = array();
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    extract($row);
-    $organizacaoVirtual_item = array(
-        "idFestival" => $IdFestival,
-        "emailCliente" => $EmailCliente,
-        "emailEmpresa" => $EmailEmpresa,
-        "organizacaoAprovada" => $OrganizacaoAprovada
+    $feedbackTarefa_item = array(
+        "tarefa" => $Tarefa,
+        "emailAvaliador" => $EmailAvaliador,
+        "emailAvaliado" => $EmailAvaliado,
+        "classificacao" => $Classificacao
     );
-    array_push($organizacoesVirtuais, $organizacaoVirtual_item);
+    array_push($feedbacksTarefa, $feedbackTarefa_item);
 }
-echo json_encode($organizacoesVirtuais);
+echo json_encode($feedbacksTarefa);
+
+
+
+
+

@@ -59,11 +59,12 @@ class Empresa {
     }
     
     function update($email) {
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE Email = ?";
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE Email=:Email";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $email=htmlspecialchars(strip_tags($email));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $email);
+        $stmt->bindParam(":Email", $email);
         $stmt->execute();
         return $stmt;
     }

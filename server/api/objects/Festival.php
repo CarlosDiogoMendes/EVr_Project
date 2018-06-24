@@ -9,7 +9,9 @@ class Festival {
     public $nome;
     public $pais;
     public $cidade;
-    public $data;
+    public $localidade;
+    public $dataInicio;
+    public $dataFim;
     public $imagem;
     
     public function __construct($db) {
@@ -52,12 +54,13 @@ class Festival {
       return $res;
     }
     
-    function update(){
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE id = ?";
+    function update($id) {
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE id=:Id";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $id=htmlspecialchars(strip_tags($id));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(":Id", $id);
         $stmt->execute();
         return $stmt;
     }
@@ -79,9 +82,17 @@ class Festival {
         $res = $this->addComma($res);
         $res .= "Cidade=:Cidade";
       }
-      if($this->data) {
+      if($this->localidade) {
         $res = $this->addComma($res);
-        $res .= "Data=:Data";
+        $res .= "Localidade=:Localidade";
+      }
+      if($this->dataInicio) {
+        $res = $this->addComma($res);
+        $res .= "DataInicio=:DataInicio";
+      }
+      if($this->dataFim) {
+        $res = $this->addComma($res);
+        $res .= "DataFim=:DataFim";
       }
       if($this->imagem) {
         $res = $this->addComma($res);
@@ -103,8 +114,14 @@ class Festival {
       if ($this->cidade) {
         $this->cidade=htmlspecialchars(strip_tags($this->cidade));
       }
-      if ($this->data) {
-        $this->data=htmlspecialchars(strip_tags($this->data));
+      if ($this->localidade) {
+        $this->localidade=htmlspecialchars(strip_tags($this->localidade));
+      }
+      if ($this->dataInicio) {
+        $this->dataInicio=htmlspecialchars(strip_tags($this->dataInicio));
+      }
+      if ($this->dataFim) {
+        $this->dataFim=htmlspecialchars(strip_tags($this->dataFim));
       }
       if ($this->imagem) {
         $this->imagem=htmlspecialchars(strip_tags($this->imagem));
@@ -124,8 +141,14 @@ class Festival {
       if ($this->cidade) {
          $stmt->bindParam(":Cidade", $this->cidade);
       }
-      if ($this->data) {
-         $stmt->bindParam(":Data", $this->data);
+      if ($this->localidade) {
+         $stmt->bindParam(":Localidade", $this->localidade);
+      }
+      if ($this->dataInicio) {
+         $stmt->bindParam(":DataInicio", $this->dataInicio);
+      }
+      if ($this->dataFim) {
+         $stmt->bindParam(":DataFim", $this->dataFim);
       }
       if ($this->imagem) {
         $stmt->bindParam(":Imagem", $this->imagem, PDO::PARAM_LOB);

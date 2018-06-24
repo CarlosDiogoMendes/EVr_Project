@@ -8,6 +8,7 @@ class OrganizacaoVirtual {
     public $idFestival;
     public $emailCliente;
     public $emailEmpresa;
+    public $organizacaoAprovada;
     
     public function __construct($db) {
         $this->conn = $db;
@@ -50,14 +51,13 @@ class OrganizacaoVirtual {
       return $res;
     }
     
-    function update($idFestival, $emailCliente, $emailEmpresa) {
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE idFestival = ? AND emailCliente = ? AND emailEmpresa = ?";
+    function update($idFestival) {
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE idFestival=:IdFestival";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $idFestival=htmlspecialchars(strip_tags($idFestival));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $idFestival);
-        $stmt->bindParam(2, $emailCliente);
-        $stmt->bindParam(3, $emailEmpresa);
+        $stmt->bindParam(":IdFestival", $idFestival);
         $stmt->execute();
         return $stmt;
     }
@@ -75,6 +75,10 @@ class OrganizacaoVirtual {
         $res = $this->addComma($res);
         $res .= "EmailEmpresa=:EmailEmpresa";
       }
+      if($this->organizacaoAprovada) {
+        $res = $this->addComma($res);
+        $res .= "OrganizacaoAprovada=:OrganizacaoAprovada";
+      }
       return $res;
     }
     
@@ -88,6 +92,9 @@ class OrganizacaoVirtual {
       if ($this->emailEmpresa) {
         $this->emailEmpresa=htmlspecialchars(strip_tags($this->emailEmpresa));
       }
+      if ($this->organizacaoAprovada) {
+        $this->organizacaoAprovada=htmlspecialchars(strip_tags($this->organizacaoAprovada));
+      }
     }
     
     private function bindValues($stmt) {
@@ -99,6 +106,9 @@ class OrganizacaoVirtual {
       }
       if ($this->emailEmpresa) {
        $stmt->bindParam(":EmailEmpresa", $this->emailEmpresa);
+      }
+      if ($this->organizacaoAprovada) {
+       $stmt->bindParam(":OrganizacaoAprovada", $this->organizacaoAprovada);
       }
       return $stmt;
     }

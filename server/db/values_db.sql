@@ -62,3 +62,9 @@ INSERT INTO Imagem VALUES ('2', LOAD_FILE('C:/Users/ASUS/Desktop/Projeto EVr/sou
 INSERT INTO Imagem VALUES ('3', LOAD_FILE('C:/Users/ASUS/Desktop/Projeto EVr/source/server/db/images/imagem3.jng'));
 INSERT INTO Imagem VALUES ('4', LOAD_FILE('C:/Users/ASUS/Desktop/Projeto EVr/source/server/db/images/imagem4.jng'));
 INSERT INTO Imagem VALUES ('5', LOAD_FILE('C:/Users/ASUS/Desktop/Projeto EVr/source/server/db/images/imagem5.jng'));
+
+INSERT INTO EMPRESA(email,password,nome,telefone,pais,cidade,localidade,numtrabalhadores,zonaoperacao,tipo,pedidoAprovado) 
+VALUES ('danielpimenta@gmail.com','daniel','Daniel','911111111','P','Lisboa','Lisboa','1','100','Logistico',0);
+
+INSERT INTO EMPRESA(email,password,nome,telefone,pais,cidade,localidade,numtrabalhadores,zonaoperacao,tipo,pedidoAprovado) 
+VALUES ('outraempresa@gmail.com','empresa','Empresa','911111111','P','Lisboa','Lisboa','1','100','Logistico',0);

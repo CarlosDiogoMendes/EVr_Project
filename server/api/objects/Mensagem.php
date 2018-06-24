@@ -124,59 +124,72 @@ class Mensagem {
     }
 
     function updateMessageClientToEnterprise($idOrganizacao, $emissor, $recetor) {
-        $query = "UPDATE $this->table_name1 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao = ? AND Emissor = ? AND Recetor = ?";
+        $query = "UPDATE $this->table_name1 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao=:IdOrganizacao AND Emissor=:Emissor AND Recetor=:Recetor";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $idOrganizacao = htmlspecialchars(strip_tags($idOrganizacao));
+        $emissor = htmlspecialchars(strip_tags($emissor));
+        $recetor = htmlspecialchars(strip_tags($recetor));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $idOrganizacao);
-        $stmt->bindParam(2, $emissor);
-        $stmt->bindParam(3, $recetor);
+        $stmt->bindParam(":IdOrganizacao", $idOrganizacao);
+        $stmt->bindParam(":Emissor", $emissor);
+        $stmt->bindParam(":Recetor", $recetor);
         $stmt->execute();
         return $stmt;
     }
 
     function updateMessageEnterpriseToEnterprise($idOrganizacao, $emissor, $recetor) {
-        $query = "UPDATE $this->table_name2 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao = ? AND Emissor = ? AND Recetor = ?";
+        $query = "UPDATE $this->table_name2 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao=:IdOrganizacao AND Emissor=:Emissor AND Recetor=:Recetor";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $idOrganizacao = htmlspecialchars(strip_tags($idOrganizacao));
+        $emissor = htmlspecialchars(strip_tags($emissor));
+        $recetor = htmlspecialchars(strip_tags($recetor));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $idOrganizacao);
-        $stmt->bindParam(2, $emissor);
-        $stmt->bindParam(3, $recetor);
+        $stmt->bindParam(":IdOrganizacao", $idOrganizacao);
+        $stmt->bindParam(":Emissor", $emissor);
+        $stmt->bindParam(":Recetor", $recetor);
         $stmt->execute();
         return $stmt;
     }
     
     function updateMessageEnterpriseToClient($idOrganizacao, $emissor, $recetor) {
-        $query = "UPDATE $this->table_name3 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao = ? AND Emissor = ? AND Recetor = ?";
+        $query = "UPDATE $this->table_name3 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao=:IdOrganizacao AND Emissor=:Emissor AND Recetor=:Recetor";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $idOrganizacao = htmlspecialchars(strip_tags($idOrganizacao));
+        $emissor = htmlspecialchars(strip_tags($emissor));
+        $recetor = htmlspecialchars(strip_tags($recetor));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $idOrganizacao);
-        $stmt->bindParam(2, $emissor);
-        $stmt->bindParam(3, $recetor);
+        $stmt->bindParam(":IdOrganizacao", $idOrganizacao);
+        $stmt->bindParam(":Emissor", $emissor);
+        $stmt->bindParam(":Recetor", $recetor);
         $stmt->execute();
         return $stmt;
     }
     
     function updateMessageClient($idOrganizacao, $emissor) {
-        $query = "UPDATE $this->table_name4 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao = ? AND Emissor = ?";
+        $query = "UPDATE $this->table_name4 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao=:IdOrganizacao AND Emissor=:Emissor";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $idOrganizacao = htmlspecialchars(strip_tags($idOrganizacao));
+        $emissor = htmlspecialchars(strip_tags($emissor));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $idOrganizacao);
-        $stmt->bindParam(2, $emissor);
+        $stmt->bindParam(":IdOrganizacao", $idOrganizacao);
+        $stmt->bindParam(":Emissor", $emissor);
         $stmt->execute();
         return $stmt;
     }
     
     function updateMessageEnterprise($idOrganizacao, $emissor) {
-        $query = "UPDATE $this->table_name5 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao = ? AND Emissor = ?";
+        $query = "UPDATE $this->table_name5 SET " . $this->buildQueryAttributes() . " WHERE IdOrganizacao=:IdOrganizacao AND Emissor=:Emissor";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $idOrganizacao = htmlspecialchars(strip_tags($idOrganizacao));
+        $emissor = htmlspecialchars(strip_tags($emissor));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $idOrganizacao);
-        $stmt->bindParam(2, $emissor);
+        $stmt->bindParam(":IdOrganizacao", $idOrganizacao);
+        $stmt->bindParam(":Emissor", $emissor);
         $stmt->execute();
         return $stmt;
     }

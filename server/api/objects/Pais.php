@@ -2,22 +2,18 @@
 
 class Pais {
     
-    // database connection and table name
     private $conn;
     private $table_name;			
     
-    // object properties
     public $codigo;
     public $nome;
     public $capital;
 
-    // constructor with $db as database connection
     public function __construct($db) {
         $this->conn = $db;
         $this->table_name = "pais";
     }
 
-    // read users
     function read($filter, $value) {
         $query = "SELECT * FROM $this->table_name";
         if ($filter != null && $value != null) {
@@ -32,11 +28,10 @@ class Pais {
     }
 
     function insert() {        			
-        $query = "INSERT INTO " . $this->table_name . 
-              " SET " . $this->buildQueryAttributes();
+        $query = "INSERT INTO $this->table_name SET " . $this->buildQueryAttributes();
         $stmt = $this->conn->prepare($query);
-        sanitize();
-        $stmt = bindValues($stmt);
+        $this->sanitize();
+        $stmt = $this->bindValues($stmt);
         $stmt->execute();
         return $stmt;
     }
@@ -44,8 +39,8 @@ class Pais {
     function delete($codigo) {
         $query = "DELETE FROM " . $this->table_name . " WHERE codigo = ?";
         $stmt = $this->conn->prepare($query);
-        $this->codigo = htmlspecialchars(strip_tags($this->codigo));
-        $stmt->bindParam(1, $this->codigo);
+        $codigo = htmlspecialchars(strip_tags($codigo));
+        $stmt->bindParam(1, $codigo);
         $stmt->execute();
         return $stmt;
     }
@@ -57,13 +52,13 @@ class Pais {
       return $res;
     }
     
-    function update(){
-        $query = "UPDATE " . $this->table_name . 
-              " SET " . $this->buildQueryAttributes() . 
-              " WHERE codigo = :codigo";
+    function update($codigo) {
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE codigo=:Codigo";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
-        $stmt = bindValues($stmt);
+        $codigo = htmlspecialchars(strip_tags($codigo));
+        $stmt = $this->bindValues($stmt);
+        $stmt->bindParam(":Codigo", $codigo);
         $stmt->execute();
         return $stmt;
     }
@@ -71,40 +66,40 @@ class Pais {
     private function buildQueryAttributes() {
       $res = "";
       if($this->codigo) {
-        $res .= "codigo = :codigo";
+        $res .= "Codigo=:Codigo";
       }
       if($this->nome) {
         $res = $this->addComma($res);
-        $res .= "nome = :nome";
+        $res .= "Nome=:Nome";
       }
       if($this->capital) {
         $res = $this->addComma($res);
-        $res .= "capital = :capital";
+        $res .= "Capital=:Capital";
       }
       return $res;
     }
     
     private function sanitize() {
       if ($this->codigo) {
-        $this->codigo=htmlspecialchars(strip_tags($this->codigo));
+        $this->codigo = htmlspecialchars(strip_tags($this->codigo));
       }
       if ($this->nome) {
-        $this->nome=htmlspecialchars(strip_tags($this->nome));
+        $this->nome = htmlspecialchars(strip_tags($this->nome));
       }
       if ($this->capital) {
-        $this->capital=htmlspecialchars(strip_tags($this->capital));
+        $this->capital = htmlspecialchars(strip_tags($this->capital));
       }
     }
     
     private function bindValues($stmt) {
       if ($this->codigo) {
-        $stmt->bindParam(":codigo", $this->codigo);
+        $stmt->bindParam(":Codigo", $this->codigo);
       }
       if ($this->nome) {
-        $stmt->bindParam(":nome", $this->nome);
+        $stmt->bindParam(":Nome", $this->nome);
       }
       if ($this->capital) {
-        $stmt->bindParam(":capital", $this->capital);
+        $stmt->bindParam(":Capital", $this->capital);
       }
       return $stmt;
     }

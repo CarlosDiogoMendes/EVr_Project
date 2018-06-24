@@ -51,12 +51,14 @@ class Cidade {
     }
     
     function update($nome, $pais) {
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE nome = ? AND pais = ?";
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE nome=:Nome AND pais=:Pais";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
+        $nome=htmlspecialchars(strip_tags($nome));
+        $pais=htmlspecialchars(strip_tags($pais));
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $nome);
-        $stmt->bindParam(2, $pais);
+        $stmt->bindParam(":Nome", $nome);
+        $stmt->bindParam(":Pais", $pais);
         $stmt->execute();
         return $stmt;
     }
