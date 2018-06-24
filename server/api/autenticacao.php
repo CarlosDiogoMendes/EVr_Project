@@ -1,49 +1,45 @@
 <?php
-// required headers
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
 include_once './config/Database.php';
 include_once './objects/Cliente.php';
+include_once './objects/Empresa.php';
+
 $database = new Database();
 $db = $database->getConnection();
 $cliente = new Cliente($db);
-//TODO incluir empresa
+$empresa = new Empresa($db);
+
 $data = json_decode(file_get_contents("php://input"));
 echo '{ ';
-    if ($data == null || $data->email == null || $data->password == null) {
-        echo '"message": "User authentication failed", '
-           . '"errorCode": "0", '
-           . '"errorMessage": "Both email and password must be specified"';
-    }
-    else {
+if ($data == null || !isset($data->tipo) || !isset($data->email) || !isset($data->password)) {
+    echo '"message":"Tipo, email and password values must be specified"';
+} else {
+    if ($data->tipo == 0) {
         $stmt = $cliente->read('Email', $data->email);
+    } else if ($data->tipo == 1) {
+        $stmt = $empresa->read('Email', $data->email);
+    } else {
+        echo '"message":"Unexpected tipo value. 0 for client, 1 for enterprise"';
+    }
+    
+    if (isset($stmt)) {
         $error = $stmt->errorInfo();
-        if($result = $stmt->fetch()){
-            /*echo "Sucessfull ";
-            echo "<pre>";
-            print_r($result); 
-            echo "</pre>";*/
-        }
-        else{
-            echo "ERROR";
-        }
         $num = $stmt->rowCount();
-        //echo $num;
-        if ($error[0] === false) {
-            echo '"message": "User authentication failed", '
-                . '"errorCode": "' . $error[1] . '", '
-                . '"errorMessage": "' . $error[2] . '"';
-        } else if (!$result || strcmp($result['Password'], $data->password) != 0) {
-            echo '"message": "User authentication failed", '
-                . '"errorCode": "1", '
-                . '"errorMessage": "Incorrect email or password"';
+        if (isset($error[2])) {
+            echo '"message":"' . $error[2] . '"';
+        } else if ($num == 0) {
+            echo '"message":"Email or password wrong"';
+        } else if (strcmp($stmt->fetch(PDO::FETCH_ASSOC)['Password'], $data->password) != 0) {
+            echo '"message":"Email or password wrong"';
         } else {
-            echo '"message": "User authentication successful", '
-                . '"errorCode": "", '
-                . '"errorMessage": ""';
+            echo '"message":""';
         }
     }
+}
 echo ' }';
