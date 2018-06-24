@@ -1,20 +1,19 @@
 <?php
 
-class Festival {
+class EntidadePublica {
     
     private $conn;
     private $table_name;      
     
-    public $id;
     public $nome;
+    public $contacto;
     public $pais;
     public $cidade;
-    public $data;
-    public $imagem;
+    public $tipo;
     
     public function __construct($db) {
         $this->conn = $db;
-        $this->table_name = "festival";
+        $this->table_name = "entidadePublica";
     }
 
     function read($filter, $value) {
@@ -37,10 +36,10 @@ class Festival {
         return $stmt;
     }
     
-    function delete($id) {
-        $query = "DELETE FROM $this->table_name WHERE id = ?";
+    function delete($contacto) {
+        $query = "DELETE FROM $this->table_name WHERE contacto = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $id);
+        $stmt->bindParam(1, $contacto);
         $stmt->execute();
         return $stmt;
     }
@@ -52,24 +51,24 @@ class Festival {
       return $res;
     }
     
-    function update(){
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE id = ?";
+    function update($contacto) {
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE contacto = ?";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $contacto);
         $stmt->execute();
         return $stmt;
     }
     
-    private function buildQueryAttributes() {    
+    private function buildQueryAttributes() {
       $res = "";
-      if($this->id) {
-        $res .= "Id=:Id";
-      }
       if($this->nome) {
-        $res = $this->addComma($res);
         $res .= "Nome=:Nome";
+      }
+      if($this->contacto) {
+        $res = $this->addComma($res);
+        $res .= "Contacto=:Contacto";
       }
       if($this->pais) {
         $res = $this->addComma($res);
@@ -79,23 +78,19 @@ class Festival {
         $res = $this->addComma($res);
         $res .= "Cidade=:Cidade";
       }
-      if($this->data) {
+      if($this->tipo) {
         $res = $this->addComma($res);
-        $res .= "Data=:Data";
-      }
-      if($this->imagem) {
-        $res = $this->addComma($res);
-        $res .= "Imagem=:Imagem";
+        $res .= "Tipo=:Tipo";
       }
       return $res;
     }
     
     private function sanitize() {
-      if ($this->id) {
-        $this->id=htmlspecialchars(strip_tags($this->id));
-      }
       if ($this->nome) {
-        $this->password=htmlspecialchars(strip_tags($this->nome));
+        $this->nome=htmlspecialchars(strip_tags($this->nome));
+      }
+      if ($this->contacto) {
+        $this->contacto=htmlspecialchars(strip_tags($this->contacto));
       }
       if ($this->pais) {
         $this->pais=htmlspecialchars(strip_tags($this->pais));
@@ -103,20 +98,17 @@ class Festival {
       if ($this->cidade) {
         $this->cidade=htmlspecialchars(strip_tags($this->cidade));
       }
-      if ($this->data) {
-        $this->data=htmlspecialchars(strip_tags($this->data));
-      }
-      if ($this->imagem) {
-        $this->imagem=htmlspecialchars(strip_tags($this->imagem));
+      if ($this->tipo) {
+        $this->tipo=htmlspecialchars(strip_tags($this->tipo));
       }
     }
     
     private function bindValues($stmt) {
-      if ($this->id) {
-        $stmt->bindParam(":Id", $this->id);
-      }
       if ($this->nome) {
         $stmt->bindParam(":Nome", $this->nome);
+      }
+      if ($this->contacto) {
+        $stmt->bindParam(":Contacto", $this->contacto);
       }
       if ($this->pais) {
        $stmt->bindParam(":Pais", $this->pais);
@@ -124,11 +116,8 @@ class Festival {
       if ($this->cidade) {
          $stmt->bindParam(":Cidade", $this->cidade);
       }
-      if ($this->data) {
-         $stmt->bindParam(":Data", $this->data);
-      }
-      if ($this->imagem) {
-        $stmt->bindParam(":Imagem", $this->imagem, PDO::PARAM_LOB);
+      if ($this->tipo) {
+         $stmt->bindParam(":Tipo", $this->tipo);
       }
       return $stmt;
     }

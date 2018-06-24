@@ -1,20 +1,16 @@
 <?php
 
-class Festival {
+class Cidade {
     
     private $conn;
     private $table_name;      
-    
-    public $id;
+
     public $nome;
     public $pais;
-    public $cidade;
-    public $data;
-    public $imagem;
     
     public function __construct($db) {
         $this->conn = $db;
-        $this->table_name = "festival";
+        $this->table_name = "cidade";
     }
 
     function read($filter, $value) {
@@ -27,7 +23,6 @@ class Festival {
         $stmt->execute();
         return $stmt;
     }
-    
     function insert() {             
         $query = "INSERT INTO $this->table_name SET " . $this->buildQueryAttributes();
         $stmt = $this->conn->prepare($query);
@@ -37,10 +32,11 @@ class Festival {
         return $stmt;
     }
     
-    function delete($id) {
-        $query = "DELETE FROM $this->table_name WHERE id = ?";
+    function delete($nome, $pais) {
+        $query = "DELETE FROM $this->table_name WHERE nome = ? AND pais = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $id);
+        $stmt->bindParam(1, $nome);
+        $stmt->bindParam(2, $pais);
         $stmt->execute();
         return $stmt;
     }
@@ -52,83 +48,44 @@ class Festival {
       return $res;
     }
     
-    function update(){
-        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE id = ?";
+    function update($nome, $pais) {
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE nome = ? AND pais = ?";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $nome);
+        $stmt->bindParam(2, $pais);
         $stmt->execute();
         return $stmt;
     }
     
-    private function buildQueryAttributes() {    
+    private function buildQueryAttributes() {
       $res = "";
-      if($this->id) {
-        $res .= "Id=:Id";
-      }
       if($this->nome) {
-        $res = $this->addComma($res);
         $res .= "Nome=:Nome";
       }
       if($this->pais) {
         $res = $this->addComma($res);
         $res .= "Pais=:Pais";
       }
-      if($this->cidade) {
-        $res = $this->addComma($res);
-        $res .= "Cidade=:Cidade";
-      }
-      if($this->data) {
-        $res = $this->addComma($res);
-        $res .= "Data=:Data";
-      }
-      if($this->imagem) {
-        $res = $this->addComma($res);
-        $res .= "Imagem=:Imagem";
-      }
       return $res;
     }
     
     private function sanitize() {
-      if ($this->id) {
-        $this->id=htmlspecialchars(strip_tags($this->id));
-      }
       if ($this->nome) {
-        $this->password=htmlspecialchars(strip_tags($this->nome));
+        $this->nome=htmlspecialchars(strip_tags($this->nome));
       }
       if ($this->pais) {
         $this->pais=htmlspecialchars(strip_tags($this->pais));
       }
-      if ($this->cidade) {
-        $this->cidade=htmlspecialchars(strip_tags($this->cidade));
-      }
-      if ($this->data) {
-        $this->data=htmlspecialchars(strip_tags($this->data));
-      }
-      if ($this->imagem) {
-        $this->imagem=htmlspecialchars(strip_tags($this->imagem));
-      }
     }
     
     private function bindValues($stmt) {
-      if ($this->id) {
-        $stmt->bindParam(":Id", $this->id);
-      }
       if ($this->nome) {
         $stmt->bindParam(":Nome", $this->nome);
       }
       if ($this->pais) {
-       $stmt->bindParam(":Pais", $this->pais);
-      }
-      if ($this->cidade) {
-         $stmt->bindParam(":Cidade", $this->cidade);
-      }
-      if ($this->data) {
-         $stmt->bindParam(":Data", $this->data);
-      }
-      if ($this->imagem) {
-        $stmt->bindParam(":Imagem", $this->imagem, PDO::PARAM_LOB);
+        $stmt->bindParam(":Pais", $this->pais);
       }
       return $stmt;
     }

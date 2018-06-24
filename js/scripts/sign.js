@@ -1,12 +1,14 @@
-function Enterprise (nome,email,password,number,location,range,workers,type){
-    this.nome = nome;
+function Member(email,password,nome,telefone,pais,cidade,localidade,numTrabalhadores,zonaOperacao,tipo){
     this.email = email;
     this.password = password;
-    this.number = number;
-    this.location = location;
-    this.range = range;
-    this.workers = workers;
-    this.type = type;
+    this.nome = nome;
+    this.telefone = telefone;
+    this.pais = pais;
+    this.cidade = cidade;
+    this.localidade = localidade;
+    this.numTrabalhadores = numTrabalhadores;
+    this.zonaOperacao = zonaOperacao;
+    this.tipo = tipo;
 }
 
 function Client(first_name,last_name,username,email,password,number,m_number,address) {
@@ -21,22 +23,24 @@ function Client(first_name,last_name,username,email,password,number,m_number,add
 
 var type;
 
-$('#button1').click(function(){
-    $('#main').html(makeSignPageEnterprise());
-    $('#register').click(function(){
-        var nome = document.getElementById('name').value;
+$('#button1').click(function() {
+    $('#main').html(makeSignPageMember());
+    $('#register').click(function() {
         var email = document.getElementById('email').value;
-        var pass = document.getElementById('password').value;
-        var number = document.getElementById('PhoneNumber').value;
-        var location = document.getElementById('location').value;
-        var range = document.getElementById('Range').value;
-        var workers = document.getElementById('WorkersNumber').value;
-        var type = checkOptions();
-        var enterprise = new Enterprise(nome,email,pass,number,location,range,workers,type);
-        var enterprise_JSON = JSON.stringify(enterprise);
-        console.log(enterprise_JSON);
-        //insertEnterprise(enterprise_JSON);
-        
+        var password = document.getElementById('password').value;
+        var nome = document.getElementById('name').value;
+        var telefone = document.getElementById('phoneNumber').value;
+        var pais = document.getElementById('country').value; //TODO
+        var cidade = document.getElementById('city').value; //TODO
+        var localidade = document.getElementById('location').value;
+        var numTrabalhadores = document.getElementById('workersNumber').value;
+        var zonaOperacao = document.getElementById('range').value;
+        var tipo = checkOptions();
+        var member = new Member(email,password,nome,telefone,pais,cidade,localidade,numTrabalhadores,zonaOperacao,tipo);
+        var member_JSON = JSON.stringify(member);
+        console.log(member_JSON);
+        insertMember(member_JSON);
+        signIn();
     })
 });
 
@@ -73,9 +77,8 @@ function insertClient(client) {
     var data_file = "http://localhost/evr/registar_cliente.php";
     var http_request = new XMLHttpRequest();
     
-    http_request.onreadystatechange = function(){
-    
-        if (http_request.readyState == 4  ){
+    http_request.onreadystatechange = function() {
+        if (http_request.readyState == 4) {
            // TODO Javascript function JSON.parse to parse JSON data
            response= JSON.parse(http_request.responseText);
            console.log(response.message);
@@ -87,22 +90,21 @@ function insertClient(client) {
     http_request.send(client);
 }
 
-function insertEnterprise(enterprise) {
-    var data_file = "http://localhost/evr/registar_empresa.php";
+function insertMember(member) {
+    var data_file = "http://localhost/evr/registar_membro.php";
     var http_request = new XMLHttpRequest();
     
-    http_request.onreadystatechange = function(){
-    
-        if (http_request.readyState == 4  ){
-           // TODO Javascript function JSON.parse to parse JSON data
-           response= JSON.parse(http_request.responseText);
-           console.log(response.message);
+    http_request.onreadystatechange = function() {
+        if (http_request.readyState == 4) {
+            // TODO Javascript function JSON.parse to parse JSON data
+            response= JSON.parse(http_request.responseText);
+            console.log(response.message);
             M.toast({html: response.message})
         }
     }
 
     http_request.open("POST", data_file, true);
-    http_request.send(enterprise);
+    http_request.send(member);
 }
 
 function signIn() {

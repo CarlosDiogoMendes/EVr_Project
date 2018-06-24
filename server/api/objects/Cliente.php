@@ -1,4 +1,5 @@
 <?php
+
 class Cliente {
     
     private $conn;
@@ -28,6 +29,7 @@ class Cliente {
         $stmt->execute();
         return $stmt;
     }
+    
     function insert() {             
         $query = "INSERT INTO $this->table_name SET " . $this->buildQueryAttributes();
         $stmt = $this->conn->prepare($query);
@@ -36,11 +38,11 @@ class Cliente {
         $stmt->execute();
         return $stmt;
     }
-    function delete() {
+    
+    function delete($email) {
         $query = "DELETE FROM $this->table_name WHERE email = ?";
         $stmt = $this->conn->prepare($query);
-        $this->email = htmlspecialchars(strip_tags($this->email));
-        $stmt->bindParam(1, $this->email);
+        $stmt->bindParam(1, $email);
         $stmt->execute();
         return $stmt;
     }
@@ -52,13 +54,12 @@ class Cliente {
       return $res;
     }
     
-    function update(){
-        $query = "UPDATE $this->table_name SET " 
-                . $this->buildQueryAttributes() . " WHERE email = ?";
+    function update($email) {
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE email = ?";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $this->email);
+        $stmt->bindParam(1, $email);
         $stmt->execute();
         return $stmt;
     }
@@ -101,28 +102,28 @@ class Cliente {
     
     private function sanitize() {
       if ($this->email) {
-        $this->email=htmlspecialchars(strip_tags($this->email));
+        $this->email = htmlspecialchars(strip_tags($this->email));
       }
       if ($this->password) {
-        $this->password=htmlspecialchars(strip_tags($this->password));
+        $this->password = htmlspecialchars(strip_tags($this->password));
       }
       if ($this->username) {
-        $this->username=htmlspecialchars(strip_tags($this->username));
+        $this->username = htmlspecialchars(strip_tags($this->username));
       }
       if ($this->nome) {
-        $this->nome=htmlspecialchars(strip_tags($this->nome));
+        $this->nome = htmlspecialchars(strip_tags($this->nome));
       }
       if ($this->telefone) {
-        $this->telefone=htmlspecialchars(strip_tags($this->telefone));
+        $this->telefone = htmlspecialchars(strip_tags($this->telefone));
       }
       if ($this->telemovel) {
-        $this->telemovel=htmlspecialchars(strip_tags($this->telemovel));
+        $this->telemovel = htmlspecialchars(strip_tags($this->telemovel));
       }
       if ($this->morada) {
-        $this->morada=htmlspecialchars(strip_tags($this->morada));
+        $this->morada = htmlspecialchars(strip_tags($this->morada));
       }
       if ($this->avatar) {
-        $this->avatar=htmlspecialchars(strip_tags($this->avatar));
+        $this->avatar = htmlspecialchars(strip_tags($this->avatar));
       }
     }
     

@@ -38,22 +38,20 @@ CREATE OR REPLACE TABLE Cliente
 	PRIMARY KEY (Email)
 );
 
-CREATE OR REPLACE TABLE Membro 	# fornecedor/servico
+CREATE OR REPLACE TABLE Empresa 	# fornecedor/servico
 (
 	Email            VARCHAR(255),
 	Password         VARCHAR(255) NOT NULL,
-	Username         VARCHAR(255) NOT NULL UNIQUE,
 	Nome             VARCHAR(255) NOT NULL,
 	Telefone    	 VARCHAR(20) NOT NULL,
-	Telemovel   	 VARCHAR(20) NOT NULL,
-	Fax   			 VARCHAR(20),
-	Pais             VARCHAR(4), 
-	Cidade           VARCHAR(35),
-	Localidade		 VARCHAR(35),
+	Pais             VARCHAR(4) NOT NULL,
+	Cidade           VARCHAR(35) NOT NULL,
+	Localidade		 VARCHAR(35) NOT NULL,
 	Avatar    	     MEDIUMBLOB, 				# limitar o upload do avatar a 16MB
 	NumTrabalhadores INTEGER(10) NOT NULL,
-	ZonaOperacao     ENUM ('Regional','Nacional','Internacional') NOT NULL,
+	ZonaOperacao     INTEGER(10) NOT NULL
 	Tipo 		     ENUM ('Jurídico','Logistico','Catering','Segurança','Limpeza','Técnico','Animações') NOT NULL,
+	RegistoAprovado	 BOOLEAN NOT NULL,
 	PRIMARY KEY (Email),
 	FOREIGN KEY (Localidade, Cidade, Pais) REFERENCES Localidade(Nome, Cidade, Pais)
 );
@@ -71,47 +69,70 @@ CREATE OR REPLACE TABLE EntidadePublica
 	FOREIGN KEY (Cidade, Pais) REFERENCES Cidade(Nome, Pais)
 );
 
-CREATE OR REPLACE TABLE PedidoRegistoMembro
-(
-	EmailMembro	VARCHAR(255),
-	PRIMARY KEY (EmailMembro),
-	FOREIGN KEY (EmailMembro) REFERENCES Membro(Email)
-);
-
-CREATE OR REPLACE TABLE MensagemClienteMembro
+CREATE OR REPLACE TABLE MensagemClienteEmpresa
 (
 	Id		 	INT(11) AUTO_INCREMENT,
-	Emissor		VARCHAR(255),
-	Recetor		VARCHAR(255),
+	Emissor		VARCHAR(255) NOT NULL,
+	Recetor		VARCHAR(255) NOT NULL,
 	DataTempo	DATETIME NOT NULL,
-	Mensagem    VARCHAR(20000),
+	Mensagem    VARCHAR(20000) NOT NULL,
+	IdOrganizacao INT(11) NOT NULL,
 	PRIMARY KEY (Id),
 	FOREIGN KEY (Emissor) REFERENCES Cliente(Email),
-	FOREIGN KEY (Recetor) REFERENCES Membro(Email)
+	FOREIGN KEY (Recetor) REFERENCES Empresa(Email),
+	FOREIGN KEY (IdOrganizacao) REFERENCES OrganizacaoVirtual(IdFestival)
 );
 
-CREATE OR REPLACE TABLE MensagemMembroMembro
+CREATE OR REPLACE TABLE MensagemEmpresaEmpresa
 (
 	Id			INT(11) AUTO_INCREMENT,
-	Emissor		VARCHAR(255),
-	Recetor		VARCHAR(255),
+	Emissor		VARCHAR(255) NOT NULL,
+	Recetor		VARCHAR(255) NOT NULL,
 	DataTempo	DATETIME NOT NULL,
-	Mensagem    VARCHAR(20000),
+	Mensagem    VARCHAR(20000) NOT NULL,
+	IdOrganizacao INT(11) NOT NULL,
 	PRIMARY KEY (Id),
-	FOREIGN KEY (Emissor) REFERENCES Membro(Email),
-	FOREIGN KEY (Recetor) REFERENCES Membro(Email)
+	FOREIGN KEY (Emissor) REFERENCES Empresa(Email),
+	FOREIGN KEY (Recetor) REFERENCES Empresa(Email),
+	FOREIGN KEY (IdOrganizacao) REFERENCES OrganizacaoVirtual(IdFestival)
 );
 
-CREATE OR REPLACE TABLE MensagemMembroCliente
+CREATE OR REPLACE TABLE MensagemEmpresaCliente
 (
 	Id			INT(11) AUTO_INCREMENT,
-	Emissor		VARCHAR(255),
-	Recetor		VARCHAR(255),
+	Emissor		VARCHAR(255) NOT NULL,
+	Recetor		VARCHAR(255) NOT NULL,
 	DataTempo	DATETIME NOT NULL,
-	Mensagem    VARCHAR(20000),
+	Mensagem    VARCHAR(20000) NOT NULL,
+	IdOrganizacao INT(11) NOT NULL,
 	PRIMARY KEY (Id),
-	FOREIGN KEY (Emissor) REFERENCES Membro(Email),
-	FOREIGN KEY (Recetor) REFERENCES Cliente(Email)
+	FOREIGN KEY (Emissor) REFERENCES Empresa(Email),
+	FOREIGN KEY (Recetor) REFERENCES Cliente(Email),
+	FOREIGN KEY (IdOrganizacao) REFERENCES OrganizacaoVirtual(IdFestival)
+);
+
+CREATE OR REPLACE TABLE MensagemCliente
+(
+	Id			INT(11) AUTO_INCREMENT,
+	Emissor		VARCHAR(255) NOT NULL,
+	DataTempo	DATETIME NOT NULL,
+	Mensagem    VARCHAR(20000) NOT NULL,
+	IdOrganizacao  INT(11) NOT NULL,
+	PRIMARY KEY (Id),
+	FOREIGN KEY (Emissor) REFERENCES Cliente(Email),
+	FOREIGN KEY (IdOrganizacao) REFERENCES OrganizacaoVirtual(IdFestival)
+);
+
+CREATE OR REPLACE TABLE MensagemEmpresa
+(
+	Id			INT(11) AUTO_INCREMENT,
+	Emissor		VARCHAR(255) NOT NULL,
+	DataTempo	DATETIME NOT NULL,
+	Mensagem    VARCHAR(20000) NOT NULL,
+	IdOrganizacao  INT(11) NOT NULL,
+	PRIMARY KEY (Id),
+	FOREIGN KEY (Emissor) REFERENCES Empresa(Email),
+	FOREIGN KEY (IdOrganizacao) REFERENCES OrganizacaoVirtual(IdFestival)
 );
 
 CREATE OR REPLACE TABLE Festival
@@ -132,11 +153,11 @@ CREATE OR REPLACE TABLE OrganizacaoVirtual
 (
 	IdFestival		INT(11),
 	EmailCliente	VARCHAR(255),
-	EmailMembro		VARCHAR(255),
-	PRIMARY KEY (IdFestival, EmailCliente, EmailMembro),
+	EmailEmpresa		VARCHAR(255),
+	PRIMARY KEY (IdFestival, EmailCliente, EmailEmpresa),
 	FOREIGN KEY (IdFestival) REFERENCES Festival(Id),
 	FOREIGN KEY (EmailCliente) REFERENCES Cliente(Email),
-	FOREIGN KEY (EmailMembro) REFERENCES Membro(Email) 
+	FOREIGN KEY (EmailEmpresa) REFERENCES Empresa(Email) 
 );
 
 CREATE OR REPLACE TABLE Tarefa
@@ -150,27 +171,7 @@ CREATE OR REPLACE TABLE Tarefa
 	Responsavel 	VARCHAR(255),
 	Estado 			ENUM('Completa', 'Incompleta', 'Cancelada') NOT NULL,
 	PRIMARY KEY (Id),
-	FOREIGN KEY (Festival, Coordenador, Responsavel) REFERENCES OrganizacaoVirtual(IdFestival, EmailCliente, EmailMembro)
-);
-
-CREATE OR REPLACE TABLE NoticiaCliente
-(
-	Id 			INT(11) AUTO_INCREMENT,
-	DataTempo	DATETIME NOT NULL,
-	Conteudo 	VARCHAR(20000) NOT NULL,
-	Autor 		VARCHAR(255),
-	PRIMARY KEY (Id),
-	FOREIGN KEY (Autor) REFERENCES Cliente(Email)
-);
-
-CREATE OR REPLACE TABLE NoticiaMembro
-(
-	Id 			INT(11) AUTO_INCREMENT,
-	DataTempo	DATETIME NOT NULL,
-	Conteudo 	VARCHAR(20000) NOT NULL,
-	Autor 		VARCHAR(255),
-	PRIMARY KEY (Id),
-	FOREIGN KEY (Autor) REFERENCES Membro(Email)
+	FOREIGN KEY (Festival, Coordenador, Responsavel) REFERENCES OrganizacaoVirtual(IdFestival, EmailCliente, EmailEmpresa)
 );
 
 CREATE OR REPLACE TABLE FeedbackOrganizacaoVirtual
@@ -180,7 +181,7 @@ CREATE OR REPLACE TABLE FeedbackOrganizacaoVirtual
 	EmailAvaliado	VARCHAR(255),
 	Classificacao	ENUM('1','2','3','4','5') NOT NULL,
 	PRIMARY KEY (Festival, EmailAvaliador, EmailAvaliado),
-	FOREIGN KEY (Festival, EmailAvaliador, EmailAvaliado) REFERENCES OrganizacaoVirtual(IdFestival, EmailCliente, EmailMembro)
+	FOREIGN KEY (Festival, EmailAvaliador, EmailAvaliado) REFERENCES OrganizacaoVirtual(IdFestival, EmailCliente, EmailEmpresa)
 
 );
 
@@ -193,7 +194,7 @@ CREATE OR REPLACE TABLE FeedbackTarefa
 	PRIMARY KEY (Tarefa, EmailAvaliador, EmailAvaliado),
 	FOREIGN KEY (Tarefa) REFERENCES Tarefa(Id),
 	FOREIGN KEY (EmailAvaliador) REFERENCES Cliente(Email),
-	FOREIGN KEY (EmailAvaliado) REFERENCES Membro(Email)
+	FOREIGN KEY (EmailAvaliado) REFERENCES Empresa(Email)
 );
 
 CREATE OR REPLACE TABLE Imagem

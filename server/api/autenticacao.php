@@ -10,6 +10,7 @@ include_once './objects/Cliente.php';
 $database = new Database();
 $db = $database->getConnection();
 $cliente = new Cliente($db);
+//TODO incluir empresa
 $data = json_decode(file_get_contents("php://input"));
 echo '{ ';
     if ($data == null || $data->email == null || $data->password == null) {

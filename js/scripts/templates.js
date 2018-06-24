@@ -1,46 +1,61 @@
-function makeSignPageEnterprise() {
-    return ` <div><h4>Account Information</h4></div>  
+function makeSignPageMember() {
+    return ` 
+    <div><h4>Account Information</h4></div>  
     <br>
     <div class="row">
-        <div class="input-field col m8">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="name" type="text" class="autocomplete validate">    
-            <label for="name">Name</label>                    
-        </div>
-        <div class="input-field col m8">
+        <div class="input-field col m4">
             <i class="material-icons prefix">email</i>
             <input id="email" type="email" class="autocomplete validate"> 
             <label for="email">Email</label>               
-    </div>
-        <div class="input-field col m6">
+        </div>
+        <div class="input-field col m4">
             <i class="material-icons prefix">fingerprint</i>
             <input id="password" type="password" class="autocomplete validate">
             <label for="passowrd">Password</label>               
         </div>
     </div>
+    <div>
+        <div class="input-field col m8">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="name" type="text" class="autocomplete validate">    
+            <label for="name">Name</label>                    
+        </div>
+    </div>
     <div class="row">
-        <div class="input-field col m6">
+        <div class="input-field col m8">
             <i class="material-icons prefix">phone</i>
-            <input id="PhoneNumber" type="number" class="autocomplete validate">
-            <label for="PhoneNUmber">Phone number</label>               
-    </div>
+            <input id="phoneNumber" type="number" class="autocomplete validate">
+            <label for="phoneNumber">Phone number</label>               
+        </div>
     </div>
     <div class="row">
-        <div class="input-field col m6">
+        <div class="input-field col m4">
             <i class="material-icons prefix">location_on</i>
+            <input id="country" type="text" class="autocomplete validate">
+            <label for="country">Country</label>               
+        </div>
+        <div class="input-field col m4">
+            <i class="material-icons prefix">location_city</i>
+            <input id="city" type="text" class="autocomplete validate">
+            <label for="city">City</label>               
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col m4">
+            <i class="material-icons prefix">my_location</i>
             <input id="location" type="text" class="autocomplete validate">
             <label for="location">Location</label>   
         </div>
-        <div class="input-field col m6">
-            <input id="Range" type="number" class="autocomplete validate">
-            <label for="Range">Range of action(km)</label>       
+        <div class="input-field col m4">
+            <input id="range" type="number" class="autocomplete validate">
+            <label for="range">Range of action (kilometers)</label>       
         </div>    
     </div>
     <div class="row">
-        <div class="input-field col m6">
+        <div class="input-field col m8">
             <i class="material-icons prefix">group</i>
-            <input id="WorkersNumber" type="number" class="autocomplete validate">
-            <label for="WorkersNumber">Number of workers</label>       
+            <input id="workersNumber" type="number" class="autocomplete validate">
+            <label for="workersNumber">Number of workers</label>       
     </div>
     <div class="row">
         <div class="col m8">

@@ -1,4 +1,5 @@
 <?php
+
 class Imagem {
     
     private $conn;
@@ -32,10 +33,9 @@ class Imagem {
         return $stmt;
     }
     
-    function delete() {
+    function delete($id) {
         $query = "DELETE FROM $this->table_name WHERE Id = ?";
         $stmt = $this->conn->prepare($query);
-        $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
         return $stmt;
@@ -48,13 +48,12 @@ class Imagem {
       return $res;
     }
     
-    function update(){
-        $query = "UPDATE $this->table_name SET " 
-                . $this->buildQueryAttributes() . " WHERE Id = ?";
+    function update($id) {
+        $query = "UPDATE $this->table_name SET " . $this->buildQueryAttributes() . " WHERE Id = ?";
         $stmt = $this->conn->prepare($query);
         $this->sanitize();
         $stmt = $this->bindValues($stmt);
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $id);
         $stmt->execute();
         return $stmt;
     }

@@ -40,9 +40,8 @@ class Pais {
         return $stmt;
     }
 
-    function delete(){
-        $query = "DELETE FROM " . $this->table_name . 
-                " WHERE codigo = ?";
+    function delete($codigo) {
+        $query = "DELETE FROM " . $this->table_name . " WHERE codigo = ?";
         $stmt = $this->conn->prepare($query);
         $this->codigo = htmlspecialchars(strip_tags($this->codigo));
         $stmt->bindParam(1, $this->codigo);
@@ -108,5 +107,16 @@ class Pais {
       }
       return $stmt;
     }
+    
+    function getCodeFromCountry($country) {
+        $query = "SELECT Codigo FROM pais WHERE Nome = ?";
+        $stmt = $this->conn->prepare($query);
+        $country = htmlspecialchars(strip_tags($country));
+        $stmt->bindParam(1, $country);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['Codigo']; 
+    }
+    
 }
 
