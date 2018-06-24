@@ -15,7 +15,9 @@ class Localidade {
     }
 
     function read($filter, $value) {
-        $query = "SELECT * FROM $this->table_name";
+        $query = "SELECT $this->table_name.Nome as Localidade, Cidade, pais.Nome as Pais "
+                . "FROM $this->table_name "
+                . "INNER JOIN pais ON $this->table_name.Pais = pais.Codigo";
         if ($filter != NULL && $value != NULL) {
             $query .= " WHERE $filter = ?";
         }

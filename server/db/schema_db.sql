@@ -49,7 +49,7 @@ CREATE OR REPLACE TABLE Empresa 	# fornecedor/servico
 	Localidade		 VARCHAR(35) NOT NULL,
 	Avatar    	     MEDIUMBLOB, 				# limitar o upload do avatar a 16MB
 	NumTrabalhadores INTEGER(10) NOT NULL,
-	ZonaOperacao     INTEGER(10) NOT NULL
+	ZonaOperacao     INTEGER(10) NOT NULL,
 	Tipo 		     ENUM ('Jurídico','Logistico','Catering','Segurança','Limpeza','Técnico','Animações') NOT NULL,
 	RegistoAprovado	 BOOLEAN NOT NULL,
 	PRIMARY KEY (Email),
@@ -153,7 +153,7 @@ CREATE OR REPLACE TABLE OrganizacaoVirtual
 (
 	IdFestival		INT(11),
 	EmailCliente	VARCHAR(255),
-	EmailEmpresa		VARCHAR(255),
+	EmailEmpresa	VARCHAR(255),
 	PRIMARY KEY (IdFestival, EmailCliente, EmailEmpresa),
 	FOREIGN KEY (IdFestival) REFERENCES Festival(Id),
 	FOREIGN KEY (EmailCliente) REFERENCES Cliente(Email),
@@ -182,7 +182,6 @@ CREATE OR REPLACE TABLE FeedbackOrganizacaoVirtual
 	Classificacao	ENUM('1','2','3','4','5') NOT NULL,
 	PRIMARY KEY (Festival, EmailAvaliador, EmailAvaliado),
 	FOREIGN KEY (Festival, EmailAvaliador, EmailAvaliado) REFERENCES OrganizacaoVirtual(IdFestival, EmailCliente, EmailEmpresa)
-
 );
 
 CREATE OR REPLACE TABLE FeedbackTarefa

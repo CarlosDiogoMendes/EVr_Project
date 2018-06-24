@@ -8,7 +8,7 @@ class Mensagem {
     private $table_name3;
     private $table_name4;
     private $table_name5;
-    
+
     public $id;
     public $emissor;
     public $recetor;

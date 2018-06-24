@@ -16,9 +16,7 @@
     echo '{ ';
     if ($data == null || $data->email == null || $data->password == null || $data->username == null || 
             $data->nome == null || $data->telefone == null || $data->telemovel == null || $data->morada == null) {
-         echo '"message": "User register failed", '
-                    . '"errorCode": "0", '
-                    . '"errorMessage": "Email, password, username, name, phone, mobile and address values must be specified"';
+        echo '"message":"Email, password, username, name, phone, mobile and address values must be specified"';
     } else {
         $cliente->email = $data->email;
         $cliente->password = $data->password;
@@ -29,14 +27,6 @@
         $cliente->morada = $data->morada;
         $stmt = $cliente->insert();
         $error = $stmt->errorInfo();
-        if ($error[0] === false) {
-            echo '"message": "User register failed", '
-                    . '"errorCode": "' . $error[1] . '", '
-                    . '"errorMessage": "' . $error[2] . '"';
-        } else {
-            echo '"message": "User register successful", '
-                    . '"errorCode": "", '
-                    . '"errorMessage": ""';
-        }
+        echo '"message":"$error[2]"';
     }
     echo ' }';

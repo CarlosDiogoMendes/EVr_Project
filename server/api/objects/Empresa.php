@@ -1,5 +1,6 @@
 <?php
-class enterprise {
+
+class Empresa {
     
     private $conn;
     private $table_name;      
@@ -19,7 +20,7 @@ class enterprise {
     
     public function __construct($db) {
         $this->conn = $db;
-        $this->table_name = "enterprise";
+        $this->table_name = "empresa";
     }
 
     function read($filter, $value) {

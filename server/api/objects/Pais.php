@@ -1,4 +1,5 @@
 <?php
+
 class Pais {
     
     // database connection and table name
